@@ -1,0 +1,49 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   outline: none;
+   font-family: 'Jost', sans-serif;
+}
+
+html {
+   font-size: 62.5%;
+}
+
+body {
+   font-size: 1.6rem;
+}
+
+ul {
+   list-style: none;
+}
+
+a {
+   color: inherit;
+   font-family: inherit;
+   text-decoration: none;
+}
+
+button {
+   background-color: transparent;
+   border: none;
+}
+
+input, textarea {
+   border: none;
+}
+
+.container {
+   width: 100%;
+   max-width: 127rem;
+   padding: 0 1rem;
+   margin: auto;
+}
+
+.main {
+   display: flex;
+}
+
+.content {
+   width: 100%;
+}

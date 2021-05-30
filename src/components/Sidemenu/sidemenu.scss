@@ -1,0 +1,49 @@
+@import '../../styles/vars';
+
+.sidemenu {
+   min-width: 23rem;
+   max-width: 30%;
+   padding-right: 2rem;
+
+   &__element {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+   }
+
+   &__item {
+      display: flex;
+      align-items: center;
+      padding-left: 1rem;
+      font-size: 1.8rem;
+      color: $black;
+      position: relative;
+      transition: color .1s linear;
+
+      &.active {
+         color: $color;
+
+         &:before {
+            content: "";
+            width: 3px;
+            height: 100%;
+            background-color: $color;
+            position: absolute;
+            left: 0;
+            top: 0;
+         }
+      }
+
+      &:last-child {
+         margin-bottom: 0;
+      }
+
+      &:hover {
+         color: $color;
+      }
+   }
+
+   &__link {
+      margin-left: 1rem;
+   }
+}

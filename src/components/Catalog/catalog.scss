@@ -1,0 +1,61 @@
+@import '../../styles/vars';
+
+.catalog {
+   width: 30rem;
+   padding: 2rem;
+   background-color: rgba($white, 0.6);
+   border-radius: 2rem;
+   box-shadow: $shadow;
+   backdrop-filter: blur(3px);
+   position: absolute;
+   left: 0;
+   z-index: 1;
+
+   &__container{
+      position: relative;
+   }
+
+   &__btn {
+      padding: 0.8rem 3rem;
+      display: flex;
+      align-items: center;
+      border: none;
+      border-radius: 2rem;
+      background-color: $color;
+      color: $white;
+      font-size: 1.8rem;
+      letter-spacing: 0.7px;
+      cursor: pointer;
+
+      span {
+         margin-right: 1rem;
+      }
+   }
+
+   &__item {
+      margin-bottom: 1rem;
+      padding-bottom: 5px;
+      border-bottom: 1px solid $gray;
+      
+      &:last-child {
+         margin-bottom: 0;
+      }
+   }
+
+   &__link {
+      color: darken($gray, 30%);
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: .8px;
+      transition: color .1s linear;
+
+      span {
+         font-size: 1.4rem;
+         margin-right: 5px;
+      }
+
+      &:hover {
+         color: $black;
+      }
+   }
+}

@@ -1,0 +1,91 @@
+@import '../../styles/vars';
+
+.header {
+   margin: 1rem 0 3rem;
+
+   &__inner {
+      width: 100%;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+   }
+
+   &__block {
+      display: flex;
+      align-items: center;
+   }
+
+   &__logo {
+      margin-right: 2rem;
+      color: $black;
+      font-size: 2.1rem;
+      font-weight: 600;
+   }
+
+   &__search {
+      width: 100%;
+      max-width: 56rem;
+      margin: 0 1rem;
+      position: relative;
+   }
+
+   &__search-filed {
+      width: 100%;
+      padding: 1rem 1rem 1rem 4rem;
+      border-bottom: 1px solid $gray;
+      font-size: 1.6rem;
+
+      &:focus {
+         border-bottom: 1px solid $color;
+      }
+   }
+
+   &__search-icon {
+      color: $gray;
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+
+      span {
+         font-size: 2.1rem;
+      }
+   }
+
+   &__buttons {
+      display: flex;
+      align-items: center;
+   }
+
+   &__icon {
+      margin-right: 2rem;
+      cursor: pointer;
+
+      p,
+      span {
+         color: $primary;
+         transition: color .1s linear;
+      }
+
+      span {
+         font-size: 2.1rem;
+      }
+
+      p {
+         font-size: 1.4rem;
+      }
+
+      &:hover {
+
+         p,
+         span {
+            color: $color;
+         }
+      }
+
+      &:last-child {
+         margin-right: 0;
+      }
+   }
+}
