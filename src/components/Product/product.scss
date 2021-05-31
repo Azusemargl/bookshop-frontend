@@ -1,10 +1,5 @@
 @import '../../styles/vars';
 
-.products {
-   display: flex;
-   flex-wrap: wrap;
-}
-
 .product {
    $self: &;
    width: calc(100% / 4 - 3rem);

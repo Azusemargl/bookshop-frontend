@@ -1,10 +1,13 @@
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
-import { Header, Sidemenu, TopBar, Product } from './components'
+import { Provider } from 'react-redux'
+import { Products } from './containers'
+import { Header, Sidemenu, TopBar } from './components'
+import { store } from './store/store'
 
 const Home = () => {
   return (
-    <Product />
+    <Products />
   )
 }
 
@@ -35,7 +38,9 @@ const Wrapper = () => {
 const App = () => {
   return (
     <BrowserRouter>
-      <Wrapper />
+      <Provider store={store}>
+        <Wrapper />
+      </Provider>
     </BrowserRouter>
   )
 }
