@@ -4,7 +4,7 @@ import { SearchOutlined, ShoppingCartOutlined, HeartOutlined, UserOutlined } fro
 import Catalog from '../Catalog'
 import './header.scss'
 
-const Header: React.FC = () => {
+const Header: React.FC<Props> = ({ onAuth }) => {
    return (
       <header className="header">
          <div className="container">
@@ -20,7 +20,7 @@ const Header: React.FC = () => {
                <div className="header__buttons">
                   <button className="header__icon"><HeartOutlined /><p>Избранное</p></button>
                   <button className="header__icon"><ShoppingCartOutlined /><p>Корзина</p></button>
-                  <button className="header__icon"><UserOutlined /><p>Войти</p></button>
+                  <button className="header__icon" onClick={e => onAuth(true)}><UserOutlined /><p>Войти</p></button>
                </div>
             </div>
          </div>
@@ -29,3 +29,8 @@ const Header: React.FC = () => {
 }
 
 export default Header
+
+// Types
+type Props = {
+   onAuth: (value: boolean) => void
+}

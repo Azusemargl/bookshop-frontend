@@ -1,0 +1,117 @@
+@import '../../styles/vars';
+
+.auth {
+   width: 100%;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-items: center;
+   background-color: rgba($black, .3);
+   backdrop-filter: blur(4px);
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: 1;
+}
+
+.auth-form {
+   width: 90%;
+   max-width: 50rem;
+   padding: 2rem;
+   background-color: $white;
+   border-radius: 1rem;
+   box-shadow: $shadow;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+
+   &__top {
+      margin-bottom: 2rem;
+   }
+
+   &__top-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      button {
+         cursor: pointer;
+
+         span {
+            font-size: 2.1rem;
+         }
+      }
+   }
+
+   &__fields {
+      margin-bottom: 2rem;
+   }
+
+   &__group {
+      &.error {
+         input {
+            border-bottom: 1px solid $red;
+         }
+
+         span {
+            color: $red;
+         }
+      }
+
+      &.success {
+         input {
+            border-bottom: 1px solid $green;
+         }
+      }
+
+      &.checkbox {
+         margin-top: 3rem;
+         
+         input {
+            margin-right: 5px;
+            width: auto;
+         }
+
+         label {
+            color: $primary;
+            line-height: 1;
+            cursor: pointer;
+         }
+      }
+
+      &:not(:last-child) {
+         margin-bottom: 1rem;
+      }
+   }
+
+   &__group-inner {
+      display: flex;
+   }
+
+   &__input {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      background-color: darken($white, 5%);
+      font-size: 1.8rem;
+   }
+
+   &__footer {
+      margin-top: 1rem;
+
+      p {
+         display: inline-block;
+         margin-right: 1rem;
+      }
+
+      span {
+         color: $color;
+         cursor: pointer;
+
+         &:hover {
+            text-decoration: underline;
+         }
+      }
+   }
+}

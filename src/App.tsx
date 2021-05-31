@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { Products } from './containers'
+import { Auth, Products } from './containers'
 import { Header, Sidemenu, TopBar } from './components'
 import { store } from './store/store'
 
@@ -18,10 +18,13 @@ const Catalog = () => {
 }
 
 const Wrapper = () => {
+  const [showAuth, setShowAuth] = React.useState(false)
+
   return (
     <div className="wrapper">
+      <Auth showAuth={showAuth} setShowAuth={setShowAuth} />
       <TopBar cities={['Москва', 'Санкт-Петербург']} />
-      <Header />
+      <Header onAuth={setShowAuth} />
       <div className="container">
         <main className="main">
           <Sidemenu />

@@ -1,3 +1,5 @@
+@import './vars';
+
 * {
    margin: 0;
    padding: 0;
@@ -33,6 +35,11 @@ input, textarea {
    border: none;
 }
 
+.wrapper {
+   min-height: 100vh;
+   position: relative;
+}
+
 .container {
    width: 100%;
    max-width: 127rem;
@@ -46,4 +53,17 @@ input, textarea {
 
 .content {
    width: 100%;
+}
+
+.button {
+   padding: 2px 4rem;
+   background-color: $color;
+   border-radius: 3rem;
+   color: $white;
+   font-size: 1.9rem;
+   cursor: pointer;
+
+   &:hover {
+      background-color: darken($color, 5%);
+   }
 }
