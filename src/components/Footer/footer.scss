@@ -1,0 +1,16 @@
+@import '../../styles/vars';
+
+.footer {
+   margin-top: 3rem;
+   padding: 3rem 0;
+   background-color: $black;
+
+   &__link {
+      color: darken($white, 30%);
+      font-size: 1.8rem;
+
+      &:hover {
+         color: $white;
+      }
+   }
+}

@@ -1,14 +1,14 @@
 @import '../../styles/vars';
 
 .auth {
-   width: 100%;
+   width: 100vw;
    height: 100%;
    display: flex;
    align-items: center;
    justify-items: center;
-   background-color: rgba($black, .3);
-   backdrop-filter: blur(4px);
-   position: absolute;
+   background-color: rgba($black, .4);
+   backdrop-filter: blur(3px);
+   position: fixed;
    top: 0;
    left: 0;
    z-index: 1;

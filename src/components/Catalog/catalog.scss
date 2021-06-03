@@ -3,10 +3,10 @@
 .catalog {
    width: 30rem;
    padding: 2rem;
-   background-color: rgba($white, 0.6);
-   border-radius: 2rem;
+   background-color: rgba($white, 0.9);
+   border-radius: 1rem;
    box-shadow: $shadow;
-   backdrop-filter: blur(3px);
+   backdrop-filter: blur(2px);
    position: absolute;
    left: 0;
    z-index: 1;

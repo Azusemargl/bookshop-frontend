@@ -35,24 +35,47 @@ input, textarea {
    border: none;
 }
 
+.modal-open {
+   width: calc(100% - 1.7rem);
+   overflow: hidden;
+
+   .top-bar {
+      width: 100vw;
+   }
+}
+
 .wrapper {
    min-height: 100vh;
+   display: flex;
+   flex-direction: column;
    position: relative;
+
+   &__inner {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      
+      .container {
+         display: flex;
+         flex-grow: 1;
+      }
+   }
 }
 
 .container {
    width: 100%;
-   max-width: 127rem;
+   max-width: 144rem;
    padding: 0 1rem;
    margin: auto;
 }
 
 .main {
+   width: 100%;
    display: flex;
 }
 
 .content {
-   width: 100%;
+   width: 80%;
 }
 
 .button {

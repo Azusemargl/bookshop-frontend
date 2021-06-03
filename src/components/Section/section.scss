@@ -1,0 +1,16 @@
+@import '../../styles/vars';
+
+.section {
+   padding-bottom: 4rem;
+
+   &__title {
+      margin-bottom: 2rem;
+      font-size: 2.8rem;
+      color: $primary;
+   }
+
+   &:not(:last-child) {
+      margin-bottom: 4rem;
+      border-bottom: 1px solid rgba($black, .2);
+   }
+}

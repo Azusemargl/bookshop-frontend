@@ -1,10 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import classnames from 'classnames'
+import { discount } from '../../utils/helpers/discount'
 import { StarFilled, StarOutlined, ShoppingCartOutlined, HeartOutlined } from '@ant-design/icons'
-import { Books } from '../../types/types'
+import { BookCard } from '../../types/bookTypes'
 import './product.scss'
 
-const Product: React.FC<Books> = ({ name, image, author, rating, review, price, past_price }) => {
+const Product: React.FC<Props & BookCard> = React.memo((props) => {
+   const { name, image, author, rating, review, price, past_price, sales, mainPage } = props
+
    const filled = []
    const outlined = []
    for (let i = 0; i < rating; i++) {
@@ -13,21 +17,21 @@ const Product: React.FC<Books> = ({ name, image, author, rating, review, price, 
    for (let i = 0; i < 5 - rating; i++) {
       outlined.push(rating)
    }
-
    return (
-      <div className="product">
+      <div className={classnames("product", {"main-page": mainPage})}>
          <div>
             <div className="product__image">
                <Link to="/" className="product__image_container">
                   <img src={image} alt={name} />
                </Link>
                <button className="product__favorites"><HeartOutlined /></button>
-               <span className="product__discount">− 13%</span>
+               <span className="product__flag discount">− {discount(past_price, price)}%</span>
+               {sales && sales >= 1000 && <span className="product__flag bestsellers">Бестселлер</span>}
             </div>
-            <Link className="product__image" to="/">
+            <Link to="/">
                <h4 className="product__name">Атака титанов. Книга 1</h4>
             </Link>
-            <Link className="product__image" to="/">
+            <Link to="/">
                <p className="product__author">{author}</p>
             </Link>
             <div className="product__rating">
@@ -49,6 +53,11 @@ const Product: React.FC<Books> = ({ name, image, author, rating, review, price, 
          </div>
       </div>
    )
-}
+})
 
 export default Product
+
+// Type
+type Props = {
+   mainPage?: boolean
+}

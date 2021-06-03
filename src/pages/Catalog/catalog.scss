@@ -1,0 +1,13 @@
+.books-catalog {
+   display: flex;
+
+   &__products {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+   }
+
+   .product {
+      width: calc(100% / 3 - 3rem);
+   }
+}

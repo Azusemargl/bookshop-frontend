@@ -9,12 +9,17 @@ const TopBar: React.FC<Props> = React.memo(({ cities }) => {
    const [showCity, setShowCity] = React.useState(false) // City visibility toggle 
 
    const selectorRef = React.useRef<HTMLButtonElement>(null)
+   const selectorWindowRef = React.useRef<HTMLDivElement>(null)
 
    // Hide the city selector window after click
    const handleOutsideClick = React.useCallback((e: MouseEvent) => {
-      const path = e.composedPath()
-      if (selectorRef.current !== null && !path.includes(selectorRef.current)) setShowCity(false)
-      document.removeEventListener('click', handleOutsideClick)
+      if (selectorRef.current !== null && selectorWindowRef.current !== null) {
+         const path = e.composedPath()
+         if (!path.includes(selectorRef.current) && !path.includes(selectorWindowRef.current)) {
+            setShowCity(false)
+            document.removeEventListener('click', handleOutsideClick)
+         }
+      }
    }, [])
 
    // Add listener for window clicks
@@ -42,16 +47,15 @@ const TopBar: React.FC<Props> = React.memo(({ cities }) => {
             </div>
          </div>
          {showCity &&
-            <div className="city-selector">
+            <div className="city-selector" ref={selectorWindowRef}>
                <div className="container">
                   <ul className="city-selector__list">
                      {cities.map((currentCity, index) => (
                         <li
                            className={classnames("city-selector__item", {})}
                            key={`${index}-${currentCity}`}
-                           onClick={e => onCitySelect(currentCity)
-                           }>
-                           <p>{currentCity}</p>
+                        >
+                           <p onClick={e => onCitySelect(currentCity)}>{currentCity}</p>
                         </li>
                      ))}
                   </ul>

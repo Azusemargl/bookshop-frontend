@@ -1,0 +1,13 @@
+@import '../../styles/vars';
+
+.stories {
+   margin-bottom: 5rem;
+
+   .slick-slider {
+      padding: 1rem;
+   }
+
+   .slick-arrow:before {
+      color: $color;
+   }
+}

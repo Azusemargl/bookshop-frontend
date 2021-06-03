@@ -1,14 +1,13 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { AppState } from '../../store/store'
 import { Product } from '../../components'
+import { BookCard } from '../../types/bookTypes'
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import './products.scss'
 
-const Products = () => {
-   const books = useSelector((state: AppState) => state.products.books)
-   
+const Products: React.FC<Props> = ({ books }) => {
    return (
-      <div className="products">
+      <>
          {books.map(book => (
             <Product
                key={book.id}
@@ -21,8 +20,13 @@ const Products = () => {
                past_price={book.past_price}
             />
          ))}
-      </div>
+      </>
    )
 }
 
 export default Products
+
+// Types
+type Props = {
+   books: Array<BookCard>
+}

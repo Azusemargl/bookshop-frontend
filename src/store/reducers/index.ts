@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import { productReducer } from './productReducer'
 import { authReducer } from './authReducer'
+import { productReducer } from './productReducer'
+import { storiesReducer } from './storiesReducer'
 
 export const rootReducer = combineReducers({
    auth: authReducer,
-   products: productReducer
+   products: productReducer,
+   stories: storiesReducer
 })

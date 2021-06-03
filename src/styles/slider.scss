@@ -1,0 +1,14 @@
+@import './vars';
+
+.slick-arrow {
+   width: 3rem;
+   height: 3rem;
+
+   &:before {
+      color: $primary;
+      font-size: 3.2rem;
+   }
+}
+.slick-track {
+   margin: 0;
+}
