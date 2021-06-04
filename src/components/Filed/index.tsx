@@ -2,7 +2,7 @@ import React from 'react'
 import { Field as FormikField, useFormikContext } from 'formik'
 import classnames from 'classnames'
 
-const Filed: React.FC<FieldProps> = ({ name, placeholder, type, label }) => {
+const Filed: React.FC<FieldProps> = ({ name, placeholder, type, label, authError }) => {
    const formik = useFormikContext<RegisterValues>()
 
    const errors = formik.errors[name]
@@ -10,8 +10,8 @@ const Filed: React.FC<FieldProps> = ({ name, placeholder, type, label }) => {
 
    return (
       <div className={classnames("auth-form__group",
-         {"error": errors && touched},
-         {"success": touched && !errors},
+         {"error": errors && touched || authError},
+         {"success": touched && !errors && !authError},
          {"checkbox": label}
       )}>
          <div className="auth-form__group-inner">
@@ -47,4 +47,5 @@ type FieldProps = {
    placeholder: string
    type: string
    label?: string
+   authError?: string | null
 }

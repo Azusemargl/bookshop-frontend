@@ -1,11 +1,25 @@
 import React from 'react'
 import { Form, Formik } from 'formik'
 import * as yup from 'yup'
+import { useDispatch } from 'react-redux'
+import { actions } from '../../store/reducers/authReducer'
 import { CloseOutlined } from '@ant-design/icons'
 import { Filed } from '..'
-import { Login as LoginType } from '../../types/authTypes'
 
-const Login: React.FC<Props> = ({ onAuth, onClose, setAuth }) => {
+const Login: React.FC<Props> = ({ onAuth, onClose, setAuth, authError }) => {
+   const dispatch = useDispatch()
+   
+   // Close auth window
+   const onCloseAction = () => {
+      onClose(false)
+   }
+
+   // Toggle auth window
+   const onToggleAction = () => {
+      dispatch(actions.removeMessage())
+      setAuth('register')
+   }
+
    return (
       <Formik
          initialValues={{ email: '', password: '' }}
@@ -19,18 +33,19 @@ const Login: React.FC<Props> = ({ onAuth, onClose, setAuth }) => {
             <div className="auth-form__top">
                <div className="auth-form__top-title">
                   <h2>Войти в аккаунт</h2>
-                  <button onClick={e => onClose(false)}><CloseOutlined /></button>
+                  <div onClick={onCloseAction}><CloseOutlined /></div>
                </div>
                <p>Пожалуйста, войдите в свой аккаунт</p>
             </div>
             <div className="auth-form__fields">
-               <Filed name="email" placeholder="Email" type="email" />
-               <Filed name="password" placeholder="Пароль" type="password" />
+               {authError && <span className="auth-form__error">{authError}</span>}
+               <Filed name="email" placeholder="Email" type="email" authError={authError} />
+               <Filed name="password" placeholder="Пароль" type="password" authError={authError} />
             </div>
             <button className="button" type="submit">Войти</button>
             <div className="auth-form__footer">
                <p>Нет аккаунта?</p>
-               <span onClick={e => setAuth('register')}>Зарегистрироваться</span>
+               <span onClick={onToggleAction}>Зарегистрироваться</span>
             </div>
          </Form>
       </Formik>
@@ -41,7 +56,8 @@ export default Login
 
 // Types
 type Props = {
-   onAuth: (values: LoginType) => void
+   onAuth: (values: {email: string, password: string}) => void
    onClose: (values: boolean) => void
    setAuth: (values: string) => void
+   authError: string | null
 }

@@ -1,16 +1,18 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { signIn } from '../../store/reducers/authReducer'
 import { Login } from '../../components'
-import { Login as LoginType } from '../../types/authTypes'
+import { AppState } from '../../store/store'
 
 const LoginContainer: React.FC<Props> = ({ onClose, setAuth }) => {
    const dispatch = useDispatch()
-   const onAuth = (value: LoginType) => {
+   const error = useSelector((state: AppState) => state.auth.errors.loginError)
+
+   const onAuth = (value: {email: string, password: string}) => {
       dispatch(signIn(value))
    }
 
-   return <Login onAuth={onAuth} onClose={onClose} setAuth={setAuth} />
+   return <Login onAuth={onAuth} onClose={onClose} setAuth={setAuth} authError={error} />
 }
 
 export default LoginContainer

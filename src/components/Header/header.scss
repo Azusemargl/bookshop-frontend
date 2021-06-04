@@ -5,7 +5,7 @@
 
    &__inner {
       width: 100%;
-      padding: 1rem;
+      min-height: 6.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -58,8 +58,15 @@
       align-items: center;
    }
 
+   &__link-container {
+      position: relative;
+
+      &:not(:last-child) {
+         margin-right: 2rem;
+      }
+   }
+
    &__icon {
-      margin-right: 2rem;
       text-align: center;
       cursor: pointer;
 
@@ -102,11 +109,17 @@
       }
 
       span {
+         display: block;
          font-size: 2.1rem;
       }
 
       p {
+         margin-top: 3px;
          font-size: 1.4rem;
+      }
+
+      button {
+         cursor: pointer;
       }
 
       &.active {
@@ -122,9 +135,50 @@
             color: $color;
          }
       }
+   }
 
-      &:last-child {
-         margin-right: 0;
+   &__account-modul {
+      min-width: 10rem;
+      padding: 1rem;
+      background-color: darken($white, 0.5%);
+      box-shadow: $shadow;
+      border-radius: 3px;
+      position: absolute;
+      bottom: -7.5rem;
+      right: 0;
+      z-index: 1;
+
+      li {
+         width: fit-content;
+         margin-bottom: 5px;
+         display: flex;
+         align-items: center;
+         color: $primary;
+         font-size: 1.7rem;
+         font-weight: 500;
+         cursor: pointer;
+
+         p {
+            margin-left: 1rem;
+         }
+
+         a {
+            display: flex;
+            align-items: center;
+         }
+
+         &:last-child {
+            margin-bottom: 0;
+            color: $red;
+
+            &:hover {
+               color: darken($red, 10%);
+            }
+         }
+
+         &:hover {
+            color: $black;
+         }
       }
    }
 }

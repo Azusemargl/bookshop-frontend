@@ -1,8 +1,14 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { actions } from '../../store/reducers/authReducer'
 import { Login, Register } from '..'
 import './auth.scss'
 
-const Auth: React.FC<Props> = React.memo(({ showAuth, setShowAuth }) => {
+// TODO: Сorrect closing auth window after click on enter
+
+const Auth: React.FC<Props> = React.memo(({ setShowAuth, showAuth }) => {
+   const dispatch = useDispatch()
+
    const [authPage, setAuth] = React.useState('login')
 
    const authRef = React.useRef<HTMLDivElement>(null)
@@ -11,8 +17,10 @@ const Auth: React.FC<Props> = React.memo(({ showAuth, setShowAuth }) => {
    // Close the auth window
    const onClose = React.useCallback(() => {
       document.body.classList.remove('modal-open')
+      setAuth('login')
+      dispatch(actions.removeMessage())
       setShowAuth(false)
-   }, [setShowAuth])
+   }, [showAuth, setShowAuth])
 
    // Hide the auth window after click
    const handleOutsideClick = React.useCallback((e: MouseEvent) => {
@@ -20,19 +28,19 @@ const Auth: React.FC<Props> = React.memo(({ showAuth, setShowAuth }) => {
          const path = e.composedPath()
          if (!path.includes(authRef.current) && path.includes(authWrapperRef.current)) {
             onClose()
-            document.removeEventListener('click', handleOutsideClick)
+            document.removeEventListener('mousedown', handleOutsideClick)
          }
       }
    }, [onClose])
 
    // Add listener for window clicks
    React.useEffect(() => {
-      document.addEventListener('click', handleOutsideClick)
-   }, [showAuth, handleOutsideClick])
+      document.addEventListener('mousedown', handleOutsideClick)
+   }, [onClose, handleOutsideClick])
 
    return (
       <>
-         {showAuth &&
+         {showAuth && (
             <div className="auth" ref={authWrapperRef}>
                <div className="auth-wrapper" ref={authRef}>
                   {authPage === 'login'
@@ -41,7 +49,7 @@ const Auth: React.FC<Props> = React.memo(({ showAuth, setShowAuth }) => {
                   }
                </div>
             </div>
-         }
+         )}
       </>
    )
 })
@@ -50,6 +58,6 @@ export default Auth
 
 // Types
 type Props = {
-   showAuth: boolean
    setShowAuth: (value: boolean) => void
+   showAuth: boolean
 }
