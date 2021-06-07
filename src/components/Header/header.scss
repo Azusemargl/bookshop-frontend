@@ -56,13 +56,12 @@
    &__buttons {
       display: flex;
       align-items: center;
+      position: relative;
    }
 
    &__link-container {
-      position: relative;
-
-      &:not(:last-child) {
-         margin-right: 2rem;
+      &:not(:first-child) {
+         margin-left: 2rem;
       }
    }
 
@@ -144,7 +143,7 @@
       box-shadow: $shadow;
       border-radius: 3px;
       position: absolute;
-      bottom: -7.5rem;
+      bottom: -13rem;
       right: 0;
       z-index: 1;
 

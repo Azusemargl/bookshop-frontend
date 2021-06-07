@@ -9,6 +9,7 @@ const LoginContainer: React.FC<Props> = ({ onClose, setAuth }) => {
    const error = useSelector((state: AppState) => state.auth.errors.loginError)
 
    const onAuth = (value: {email: string, password: string}) => {
+      document.body.classList.remove('modal-open') 
       dispatch(signIn(value))
    }
 

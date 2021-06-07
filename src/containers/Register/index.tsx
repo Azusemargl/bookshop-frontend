@@ -10,6 +10,7 @@ const RegisterContainer: React.FC<Props> = ({ onClose, setAuth }) => {
    const error = useSelector((state: AppState) => state.auth.errors.registerError)
    
    const onAuth = (value: RegisterType) => {
+      document.body.classList.remove('modal-open') 
       dispatch(signUp(value))
    }
 

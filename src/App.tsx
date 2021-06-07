@@ -1,23 +1,31 @@
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
-import { Provider, useDispatch } from 'react-redux'
-import { store } from './store/store'
-import { auth } from './store/reducers/authReducer'
-import { Home, Catalog, Favorits } from './pages'
+import { Provider, useDispatch, useSelector } from 'react-redux'
+import { CookiesProvider } from "react-cookie"
+import { useCookies } from "react-cookie"
+import { AppState, store } from './store/store'
+import { auth as userAuth } from './store/reducers/authReducer'
+import { Home, Catalog, Favorits, Profile } from './pages'
 import { Header, Sidemenu, TopBar, Footer } from './components'
-import { token } from './utils/helpers/cookies'
 
-const Wrapper: React.FC = React.memo(() => {
+const Wrapper: React.FC = () => {
   const dispatch = useDispatch()
+  const { token } = useSelector((state: AppState) => state.auth)
+
+  const [cookies, setCookie, removeCookie] = useCookies(['token'])
 
   React.useEffect(() => {
-    dispatch(auth(token))
+    setCookie('token', token, {path: '/'})
+  }, [token])
+
+  React.useEffect(() => {
+    dispatch(userAuth(cookies.token))
   }, [])
 
   return (
     <div className="wrapper">
       <TopBar cities={['Москва', 'Санкт-Петербург']} />
-      <Header />
+      <Header removeCookie={removeCookie} />
       <div className="wrapper__inner">
         <div className="container">
           <main className="main">
@@ -26,6 +34,7 @@ const Wrapper: React.FC = React.memo(() => {
               <Route exact path="/" component={Home} />
               <Route exact path="/catalog" component={Catalog} />
               <Route exact path="/favorits" component={Favorits} />
+              <Route path="/profile" component={Profile} />
             </div>
           </main>
         </div>
@@ -33,15 +42,17 @@ const Wrapper: React.FC = React.memo(() => {
       <Footer />
     </div>
   )
-})
+}
 
 const App: React.FC = React.memo(() => {
   return (
-    <BrowserRouter>
-      <Provider store={store}>
-        <Wrapper />
-      </Provider>
-    </BrowserRouter>
+    <CookiesProvider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <Wrapper />
+        </Provider>
+      </BrowserRouter>
+    </CookiesProvider>
   )
 })
 

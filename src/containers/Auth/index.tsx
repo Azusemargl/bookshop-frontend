@@ -4,8 +4,6 @@ import { actions } from '../../store/reducers/authReducer'
 import { Login, Register } from '..'
 import './auth.scss'
 
-// TODO: Сorrect closing auth window after click on enter
-
 const Auth: React.FC<Props> = React.memo(({ setShowAuth, showAuth }) => {
    const dispatch = useDispatch()
 
@@ -16,7 +14,7 @@ const Auth: React.FC<Props> = React.memo(({ setShowAuth, showAuth }) => {
 
    // Close the auth window
    const onClose = React.useCallback(() => {
-      document.body.classList.remove('modal-open')
+      document.body.classList.remove('modal-open') 
       setAuth('login')
       dispatch(actions.removeMessage())
       setShowAuth(false)

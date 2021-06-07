@@ -8,7 +8,7 @@ export type Login = {
    auth?:  boolean
    login:  string
    email:  string
-   avatar: string
+   avatar: string | null
    role:   Array<string>
    token:  string
    message?: string | null

@@ -1,30 +1,23 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { SearchOutlined, ShoppingCartOutlined, HeartOutlined, UserOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons'
-import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { SearchOutlined, UserOutlined } from '@ant-design/icons'
+import { useSelector } from 'react-redux'
 import { AppState } from '../../store/store'
 import { Auth } from '../../containers'
 import Catalog from '../Catalog'
+import { HeaderButtons } from './HeaderButtons'
 import './header.scss'
-import { logout } from '../../store/reducers/authReducer'
 
-const Header: React.FC = React.memo(() => {
-   const dispatch = useDispatch()
+const Header: React.FC<Props> = React.memo(({ removeCookie }) => {
    const { auth, login } = useSelector((state: AppState) => state.auth)
 
    const [showAuth, setShowAuth] = React.useState(false) // auth window state
-   const [accountModul, setAccountModul] = React.useState(false) // account modul state
 
    // Open an auth window
    const onAuthOpen = React.useCallback(() => {
       document.body.classList.add('modal-open')
       setShowAuth(true)
    }, [setShowAuth])
-
-   // Dispatch for remove user data and token cookie
-   const onLogout = () => {
-      dispatch(logout())
-   }
 
    return (
       <header className="header">
@@ -39,52 +32,9 @@ const Header: React.FC = React.memo(() => {
                   <button className="header__search-icon"><SearchOutlined /></button>
                </div>
                <div className="header__buttons">
-                  {auth ? (<>
-                     <div className="header__link-container">
-                        <div className="header__icon counter finance">
-                           <span>1000</span>
-                           <p>Рублей</p>
-                        </div>
-                     </div>
-                     <div className="header__link-container">
-                        <div className="header__icon counter scores">
-                           <span>0</span>
-                           <p>Баллов</p>
-                        </div>
-                     </div>
-                     <div className="header__link-container">
-                        <NavLink to="/favorits" className="header__icon" activeClassName="active">
-                           <HeartOutlined />
-                           <p>Избранное</p>
-                        </NavLink>
-                     </div>
-                     <div className="header__link-container">
-                        <NavLink to="/cart" className="header__icon" activeClassName="active">
-                           <ShoppingCartOutlined />
-                           <p>Корзина</p>
-                        </NavLink>
-                     </div>
-                     <div className="header__link-container" onClick={e => setAccountModul(!accountModul)}>
-                        <button className="header__icon">
-                           <UserOutlined />
-                           <p>{login}</p>
-                        </button>
-                        {accountModul &&
-                           <ul className="header__account-modul">
-                              <li>
-                                 <Link to="profile">
-                                    <SettingOutlined />
-                                    <p>Профиль</p>
-                                 </Link>
-                              </li>
-                              <li onClick={e => onLogout()}>
-                                 <LogoutOutlined />
-                                 <p>Выйти</p>
-                              </li>
-                           </ul>
-                        }
-                     </div>
-                  </>) : (
+                  {auth ? (
+                     <HeaderButtons login={login} setShowAuth={setShowAuth} removeCookie={removeCookie} />
+                  ) : (
                      <div className="header__link-container">
                         <button className="header__icon" onClick={onAuthOpen}>
                            <UserOutlined />
@@ -101,3 +51,8 @@ const Header: React.FC = React.memo(() => {
 })
 
 export default Header
+
+// Types
+type Props = {
+   removeCookie: (name: string, options?: any) => void
+}
