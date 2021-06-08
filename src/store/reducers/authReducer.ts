@@ -11,7 +11,10 @@ const initialState = {
    id: null as string | null,
    login: null as string | null,
    email: null as string | null,
-   avatar: null as string | null,
+   avatar: {
+      photo: null as string | null,
+      error: null as string | null 
+   },
    role: null as Array<string> | null,
    token: null as string | null,
    city: 'Москва',
@@ -93,7 +96,7 @@ export const authReducer = (state = initialState, action: Action): InitialState 
          return { ...state, errors: { loginError: action.payload, registerError: action.payload } }
 
       case 'AUTH/SET_AVATAR':
-         return { ...state, avatar: action.payload }
+         return { ...state, avatar: { photo: action.payload.photo, error: action.payload.error } }
 
       default:
          return state
@@ -105,7 +108,7 @@ const logoutData = {
    id: null,
    login: null,
    email: null,
-   avatar: null,
+   avatar: {photo: null, error: null},
    role: null,
    token: null
 }
@@ -117,7 +120,7 @@ export const actions = {
    setLoginMessage: (payload: string | null) => ({ type: 'AUTH/SET_LOGIN_MESSAGE', payload }) as const,
    setRegisterMessage: (payload: string | null) => ({ type: 'AUTH/SET_REGISTER_MESSAGE', payload }) as const,
    removeMessage: () => ({ type: 'AUTH/REMOVE_MESSAGE', payload: null }) as const,
-   setAvatar: (payload: string) => ({ type: 'AUTH/SET_AVATAR', payload }) as const,
+   setAvatar: (payload: {photo: string | null, error: string | null}) => ({ type: 'AUTH/SET_AVATAR', payload }) as const,
    setApp: (payload: boolean) => ({ type: 'AUTH/SET_APP', payload }) as const,
    setToken: (payload: string) => ({ type: 'AUTH/SET_TOKEN', payload }) as const,
    setLoading: (payload: boolean) => ({ type: 'AUTH/SET_LOADING', payload }) as const
@@ -154,7 +157,7 @@ export const auth = (token: string): Thunk => async dispatch => {
       dispatch(actions.setToken(token))
       dispatch(actions.setLoading(false))
       dispatch(actions.setApp(true))
-   } catch (e) {
+   } catch(e) {
       console.log(`Error: ${e}`)
       dispatch(actions.setLoading(false))
    }
@@ -164,8 +167,26 @@ export const logout = (): Thunk => async dispatch => {
    dispatch(actions.logout())
 }
 // Send image file to server for save
-export const savePhoto = (file: File): Thunk => async dispatch => {
-   dispatch(actions.setAvatar(file.name))
+export const savePhoto = (id: string, file: File): Thunk => async dispatch => {
+   const res = await userAPI.avatar(id, file)
+   const photo = res.avatar
+   const error = res.error?.message || res.error
+   
+   try {
+      dispatch(actions.setAvatar({ photo, error }))
+   } catch(e) {
+      console.log(`Error: ${e}`)
+   }
+}
+// Remove image file
+export const removePhoto = (id: string): Thunk => async dispatch => {
+   const res = await userAPI.deleteAvatar(id)
+   
+   try {
+      dispatch(actions.setAvatar({ photo: null, error: null }))
+   } catch(e) {
+      console.log(`Error: ${e}`)
+   }
 }
 
 // Types

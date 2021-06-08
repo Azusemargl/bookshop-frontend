@@ -1,20 +1,28 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { savePhoto } from '../../../store/reducers/authReducer'
+import { removePhoto, savePhoto } from '../../../store/reducers/authReducer'
 import { AppState } from '../../../store/store'
 import { Diagram } from './diagram'
-import { UploadOutlined, UserAddOutlined } from '@ant-design/icons'
+import { CloseCircleFilled, UploadOutlined, UserAddOutlined } from '@ant-design/icons'
 import './profileInfo.scss'
 import { userAnalysis } from '../../../utils/helpers/userAnalysis'
 
+// TODO: Update user photo after server response
+
 export const Info: React.FC = React.memo(() => {
    const dispatch = useDispatch()
-   const { login, avatar, city, gender, orders, createdAt } = useSelector((state: AppState) => state.auth)
+   const { id, login, avatar, city, gender, orders, createdAt } = useSelector((state: AppState) => state.auth)
 
    // Get image file
    const onFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-      e.target.files && e.target.files.length && dispatch(savePhoto(e.target.files[0]))
+      if (e.target.files && e.target.files.length && id) {
+         dispatch(savePhoto(id, e.target.files[0]))
+      }
+   }
+
+   const onAvatarRemove = () => {
+      id && dispatch(removePhoto(id))
    }
 
    const categories = userAnalysis.getCategories(orders)
@@ -23,17 +31,22 @@ export const Info: React.FC = React.memo(() => {
    return (
       <div className="profile__info">
          <div className="profile__user">
-            <div className="profile__image">
-               {avatar !== null ? (
-                  <img src={avatar} className="profile__image-avatar" alt={`${login}`} />
-               ) : (
-                  <div className="profile__image-default">
-                     <UserAddOutlined />
-                     <label htmlFor="avatar-select" />
-                     <input hidden id="avatar-select" type="file" onChange={onFileUpload} />
-                     <div className="profile__image-default-icon"><UploadOutlined /></div>
-                  </div>
-               )}
+            <div className="profile__image-container">
+               <div className="profile__image">
+                  {(avatar.photo && !avatar.error) ? (
+                     <img src={`http://localhost:5000/images/${avatar.photo}`} className="profile__image-avatar" alt={`${login}`} />
+                  ) : (
+                     <div className="profile__image-default">
+                        <UserAddOutlined />
+                     </div>
+                  )}
+                  <label htmlFor="avatar-select" />
+                  <input hidden id="avatar-select" type="file" onChange={onFileUpload} />
+                  <div className="profile__image-icon"><UploadOutlined /></div>
+               </div>
+               {(avatar.photo && !avatar.error) && <button className="profile__image-delete" onClick={onAvatarRemove}>
+                  <CloseCircleFilled />
+               </button>}
             </div>
             <div className="profile__user-inner">
                <p className="profile__name">{login}</p>
@@ -42,6 +55,7 @@ export const Info: React.FC = React.memo(() => {
                <p className="profile__info-item">Аккаунт создан: {new Date(`${createdAt}`).toDateString()}</p>
             </div>
          </div>
+         {avatar.error && <span className="profile__image-error">{avatar.error}</span>}
          <div className="profile__detail">
             <div className="profile__info-row">
                <p className="profile__info-title">Заказы</p>
