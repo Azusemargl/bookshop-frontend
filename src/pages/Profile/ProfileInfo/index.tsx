@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { removePhoto, savePhoto } from '../../../store/reducers/authReducer'
+import { removePhoto, savePhoto } from '../../../store/reducers/userReducer'
 import { AppState } from '../../../store/store'
 import { Diagram } from './diagram'
 import { CloseCircleFilled, UploadOutlined, UserAddOutlined } from '@ant-design/icons'
@@ -12,7 +12,9 @@ import { userAnalysis } from '../../../utils/helpers/userAnalysis'
 
 export const Info: React.FC = React.memo(() => {
    const dispatch = useDispatch()
-   const { id, login, avatar, city, gender, orders, createdAt } = useSelector((state: AppState) => state.auth)
+   const {
+      id, login, avatar, balance, scores, city, gender, orders, createdAt
+   } = useSelector((state: AppState) => state.user)
 
    // Get image file
    const onFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,6 +53,8 @@ export const Info: React.FC = React.memo(() => {
             <div className="profile__user-inner">
                <p className="profile__name">{login}</p>
                <p className="profile__info-item">Город: {city}</p>
+               <p className="profile__info-item">Баланс: {balance} ₽</p>
+               <p className="profile__info-item">Баллы: {scores}</p>
                <p className="profile__info-item">Пол: {gender ? gender : 'Не указан'}</p>
                <p className="profile__info-item">Аккаунт создан: {new Date(`${createdAt}`).toDateString()}</p>
             </div>

@@ -13,6 +13,8 @@ export type Login = {
       error: string | null
    }
    role:   Array<string>
+   balance: number
+   scores: number
    token:  string
    message?: string | null
 }

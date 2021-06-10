@@ -9,7 +9,7 @@ import { HeaderButtons } from './HeaderButtons'
 import './header.scss'
 
 const Header: React.FC<Props> = React.memo(({ removeCookie }) => {
-   const { auth, login } = useSelector((state: AppState) => state.auth)
+   const { auth, login } = useSelector((state: AppState) => state.user)
 
    const [showAuth, setShowAuth] = React.useState(false) // auth window state
 

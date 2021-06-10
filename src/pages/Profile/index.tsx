@@ -1,8 +1,9 @@
 import React from 'react'
 import { NavLink, Redirect, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Info } from './ProfileInfo'
 import { AppState } from '../../store/store'
+import { Info } from './ProfileInfo'
+import { Settings } from './ProfileSettings'
 import { UserOutlined, SettingOutlined, ContainerOutlined } from '@ant-design/icons'
 import './profile.scss'
 
@@ -16,14 +17,8 @@ const ProfileMenuItem: React.FC<ProfileMenuItemProps> = React.memo(({ link, chil
    )
 })
 
-const Settings: React.FC = React.memo(() => {
-   const { login } = useSelector((state: AppState) => state.auth)
-
-   return <p>{login}</p>
-})
-
 const Orders: React.FC = React.memo(() => {
-   const { orders } = useSelector((state: AppState) => state.auth)
+   const { orders } = useSelector((state: AppState) => state.user)
 
    return (
       <div className="profile__orders"></div>
@@ -31,14 +26,15 @@ const Orders: React.FC = React.memo(() => {
 })
 
 const Profile: React.FC = React.memo(() => {
-   const { app, auth, isLoading } = useSelector((state: AppState) => state.auth)
+   const { app, isLoading } = useSelector((state: AppState) => state.auth)
+   const { auth } = useSelector((state: AppState) => state.user)
 
    if (app && !auth && !isLoading) return <Redirect to="/" />
 
    return (
       <div className="profile">
          <div className="profile__inner">
-            <ul className="profile__menu">
+            <ul className="profile__menu profile__wrapper">
                <ProfileMenuItem link="info">
                   <UserOutlined />
                   <p>Общее</p>
@@ -52,7 +48,7 @@ const Profile: React.FC = React.memo(() => {
                   <p>Заказы</p>
                </ProfileMenuItem>
             </ul>
-            <div className="profile__content">
+            <div className="profile__content profile__wrapper">
                <Route exact path="/profile/info" component={Info} />
                <Route exact path="/profile/settings" component={Settings} />
                <Route exact path="/profile/orders" component={Orders} />

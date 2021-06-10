@@ -10,7 +10,7 @@ import { Header, Sidemenu, TopBar, Footer } from './components'
 
 const Wrapper: React.FC = () => {
   const dispatch = useDispatch()
-  const { token } = useSelector((state: AppState) => state.auth)
+  const { token } = useSelector((state: AppState) => state.user)
 
   const [cookies, setCookie, removeCookie] = useCookies(['token'])
 

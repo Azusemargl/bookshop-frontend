@@ -21,6 +21,15 @@ export const userAPI = {
       return instance.post('/user/avatar', fd, config).then(res => res.data)
    },
    deleteAvatar: (id: string) => {
-      return instance.put('/user/avatar/delete', { id }).then(res => res.data)
+      return instance.put('/user/avatar/delete', { id })
+   },
+   updateLogin: (id: string | null, login: string) => {
+      return instance.put<{login: string, message: string}>('/user/login/update', { id, login }).then(res => res.data)
+   },
+   updateEmail: (id: string | null, email: string) => {
+      return instance.put<{email: string, message: string}>('/user/email/update', { id, email }).then(res => res.data)
+   },
+   updatePassword: (id: string, oldPasswod: string | null, password: string | null) => {
+      return instance.put<{message: string}>('/user/password/update', { id, oldPasswod, password }).then(res => res.data)
    },
 }

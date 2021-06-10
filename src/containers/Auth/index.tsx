@@ -4,6 +4,8 @@ import { actions } from '../../store/reducers/authReducer'
 import { Login, Register } from '..'
 import './auth.scss'
 
+// TODO: Correct deleting body class after getting auth mistake
+
 const Auth: React.FC<Props> = React.memo(({ setShowAuth, showAuth }) => {
    const dispatch = useDispatch()
 

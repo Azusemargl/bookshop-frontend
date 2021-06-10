@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { logout } from '../../store/reducers/authReducer'
+import { useDispatch, useSelector } from 'react-redux'
+import { actions } from '../../store/reducers/userReducer'
 import { ContainerOutlined, HeartOutlined, LogoutOutlined, SettingOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
+import { AppState } from '../../store/store'
 
 export const HeaderButtons: React.FC<Props> = React.memo(({ login, setShowAuth, removeCookie }) => {
    const dispatch = useDispatch()
+   const { balance, scores } = useSelector((state: AppState) => state.user)
 
    const [accountModul, setAccountModul] = React.useState(false) // account module state
 
@@ -14,7 +16,7 @@ export const HeaderButtons: React.FC<Props> = React.memo(({ login, setShowAuth, 
       setShowAuth(false)
       setAccountModul(false)
       removeCookie('token')
-      dispatch(logout())
+      dispatch(actions.logout())
    }
 
    const accountModelWrapperRef = React.useRef<HTMLDivElement>(null)
@@ -40,13 +42,13 @@ export const HeaderButtons: React.FC<Props> = React.memo(({ login, setShowAuth, 
       <>
          <div className="header__link-container">
             <div className="header__icon counter finance">
-               <span>1000</span>
+               <span>{balance}</span>
                <p>Рублей</p>
             </div>
          </div>
          <div className="header__link-container">
             <div className="header__icon counter scores">
-               <span>0</span>
+               <span>{scores}</span>
                <p>Баллов</p>
             </div>
          </div>
