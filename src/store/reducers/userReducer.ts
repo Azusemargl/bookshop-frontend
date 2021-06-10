@@ -25,7 +25,7 @@ const initialState = {
    createdAt: null as Date | null,
    orders: [
       {
-         "id": 1,
+         "_id": "1",
          "name": "Атака титанов. Книга 1",
          "image": "https://cdn1.ozone.ru/s3/multimedia-d/wc1200/6011956477.jpg",
          "author": "Исаяма Хадзимэ",
@@ -39,7 +39,7 @@ const initialState = {
          "sales": 5672
       },
       {
-         "id": 2,
+         "_id": "2",
          "name": "Технологическая сингулярность",
          "image": "https://cdn1.ozone.ru/multimedia/wc1200/1017508200.jpg",
          "author": "Шанахан Мюррей",
@@ -53,7 +53,7 @@ const initialState = {
          "sales": 150
       },
       {
-         "id": 3,
+         "_id": "3",
          "name": "ДНК и её человек",
          "image": "https://cdn1.ozone.ru/multimedia/wc500/1036752299.jpg",
          "author": "Клещенко Елена",

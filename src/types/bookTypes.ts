@@ -1,5 +1,5 @@
 export type Books = {
-   id: number
+   _id: string
    name: string
    image: string
    author: string
@@ -14,7 +14,7 @@ export type Books = {
 }
 
 export type BookCard = {
-   id?: number
+   _id: string
    name: string
    image: string
    author: string

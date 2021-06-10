@@ -68,7 +68,7 @@ export const Info: React.FC = React.memo(() => {
             <p className="profile__info-item">Всего: {orders.length}</p>
             <div className="profile__history">
                {orders.map(order => (
-                  <Link to={`/catalog`} className="profile__history-order" key={order.id}>
+                  <Link to={`/catalog`} className="profile__history-order" key={order._id}>
                      <div className="profile__history-image">
                         <img src={order.image} alt={order.name} />
                      </div>

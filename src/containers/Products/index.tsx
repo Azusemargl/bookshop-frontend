@@ -10,7 +10,8 @@ const Products: React.FC<Props> = ({ books }) => {
       <>
          {books.map(book => (
             <Product
-               key={book.id}
+               _id={book._id}
+               key={book._id}
                name={book.name}
                image={book.image}
                author={book.author}
