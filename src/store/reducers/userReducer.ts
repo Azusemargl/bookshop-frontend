@@ -19,6 +19,7 @@ const initialState = {
    role: null as Array<string> | null,
    balance: 0,
    scores: 0,
+   favorites: [] as Array<Books>,
    token: null as string | null,
    city: 'Москва',
    gender: '' as 'M' | 'F',
@@ -83,6 +84,12 @@ export const userReducer = (state = initialState, action: Action): InitialState 
       case 'USER/SET_AVATAR':
          return { ...state, avatar: { photo: action.payload.photo, error: action.payload.error } }
 
+      case 'USER/SET_FAVORITES':
+         return { ...state, favorites: action.payload }
+
+      case 'USER/REMOVE_FAVORITES':
+         return { ...state, favorites: action.payload }
+
       case 'USER/UPDATE_LOGIN':
          return { ...state, login: action.payload }
 
@@ -113,6 +120,7 @@ const logoutData = {
    email: null,
    avatar: {photo: null, error: null},
    role: null,
+   favorites: [],
    token: null
 }
 
@@ -122,6 +130,8 @@ export const actions = {
    setAvatar: (payload: {photo: string | null, error: string | null}) => ({ type: 'USER/SET_AVATAR', payload }) as const,
    setToken: (payload: string) => ({ type: 'USER/SET_TOKEN', payload }) as const,
    logout: () => ({ type: 'USER/SET_AUTH', payload: logoutData }) as const,
+   setFavorites:  (payload: Array<Books>) => ({ type: 'USER/SET_FAVORITES', payload }) as const,
+   removeFavorites:  (payload: Array<Books>) => ({ type: 'USER/REMOVE_FAVORITES', payload }) as const,
    updateLogin:  (payload: string) => ({ type: 'USER/UPDATE_LOGIN', payload }) as const,
    updateEmail:  (payload: string) => ({ type: 'USER/UPDATE_EMAIL', payload }) as const,
    setPassword:  (payload: string | null) => ({ type: 'USER/SET_PASSWORD', payload }) as const,
@@ -136,6 +146,26 @@ export const userFetch = (data: Login, token: string): Thunk => async dispatch =
    try {
       dispatch(actions.setUser(data))
       dispatch(actions.setToken(token))
+   } catch(e) {
+      console.log(`Error: ${e}`)
+   }
+}
+// Set fvorites
+export const fetchFavorites = (userId: string, bookId: string): Thunk => async dispatch => {
+   const res = await userAPI.setFavorits(userId, bookId)
+   
+   try {
+      dispatch(actions.setFavorites(res))
+   } catch(e) {
+      console.log(`Error: ${e}`)
+   }
+}
+// Remove login
+export const removeFavorites = (userId: string, bookId: string): Thunk => async dispatch => {
+   const res = await userAPI.removeFavorits(userId, bookId)
+   
+   try {
+      dispatch(actions.setFavorites(res))
    } catch(e) {
       console.log(`Error: ${e}`)
    }

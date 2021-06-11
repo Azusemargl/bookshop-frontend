@@ -1,13 +1,18 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import classnames from 'classnames'
 import { discount } from '../../utils/helpers/discount'
-import { StarFilled, StarOutlined, ShoppingCartOutlined, HeartOutlined } from '@ant-design/icons'
+import { StarFilled, StarOutlined, ShoppingCartOutlined, HeartOutlined, HeartFilled } from '@ant-design/icons'
 import { BookCard } from '../../types/bookTypes'
 import './product.scss'
+import { fetchFavorites, removeFavorites } from '../../store/reducers/userReducer'
+import { AppState } from '../../store/store'
 
 const Product: React.FC<Props & BookCard> = React.memo((props) => {
-   const { name, image, author, rating, review, price, past_price, sales, mainPage } = props
+   const dispatch = useDispatch()
+   const { auth, id, favorites } = useSelector((state: AppState) => state.user)
+   const { _id, name, image, author, rating, review, price, past_price, sales, mainPage } = props
 
    const filled = []
    const outlined = []
@@ -17,14 +22,32 @@ const Product: React.FC<Props & BookCard> = React.memo((props) => {
    for (let i = 0; i < 5 - rating; i++) {
       outlined.push(rating)
    }
+
+   // Set favorites books
+   const onFetchFavorites = (userId: string, bookId: string) => {
+      dispatch(fetchFavorites(userId, bookId))
+   }
+
+   // Remove favorites books
+   const onDeleteFavorites = (userId: string, bookId: string) => {
+      dispatch(removeFavorites(userId, bookId))
+   }
+
    return (
-      <div className={classnames("product", {"main-page": mainPage})}>
+      <div className={classnames("product", { "main-page": mainPage })}>
          <div>
             <div className="product__image">
                <Link to="/" className="product__image_container">
                   <img src={image} alt={name} />
                </Link>
-               <button className="product__favorites"><HeartOutlined /></button>
+               {auth && id &&
+                  <button className="product__favorites">
+                     {favorites.some(item => `${item._id}` === _id)
+                        ? <HeartFilled onClick={e => onDeleteFavorites(id, _id)} key={_id} />
+                        : <HeartOutlined onClick={e => onFetchFavorites(id, _id)} key={_id} />
+                     }
+                  </button>
+               }
                <span className="product__flag discount">− {discount(past_price, price)}%</span>
                {sales && sales >= 1000 && <span className="product__flag bestsellers">Бестселлер</span>}
             </div>
