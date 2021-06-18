@@ -1,0 +1,22 @@
+@import '../../styles/vars';
+
+.sidebar {
+   display: flex;
+   justify-content: space-between;
+
+   &>div {
+      &:first-child {}
+
+      &:last-child {
+         width: 100%;
+         min-width: 25rem;
+         max-width: 25%;
+         height: fit-content;
+         padding: 1rem;
+         margin-left: 4rem;
+         background-color: darken($white, 2%);
+         border-radius: 5px;
+         box-shadow: $shadow;
+      }
+   }
+}

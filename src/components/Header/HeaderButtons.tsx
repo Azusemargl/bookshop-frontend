@@ -9,6 +9,7 @@ export const HeaderButtons: React.FC<Props> = React.memo(({ login, setShowAuth, 
    const dispatch = useDispatch()
    const { balance, scores } = useSelector((state: AppState) => state.user)
 
+   const { books } = useSelector((state: AppState) => state.cart) // cart state
    const [accountModul, setAccountModul] = React.useState(false) // account module state
 
    // Dispatch for remove user data and token cookie
@@ -60,6 +61,7 @@ export const HeaderButtons: React.FC<Props> = React.memo(({ login, setShowAuth, 
          </div>
          <div className="header__link-container">
             <NavLink to="/cart" className="header__icon" activeClassName="active">
+               {books && books.length >= 1 && <mark className="header__icon-cart_count">{books.length}</mark>}
                <ShoppingCartOutlined />
                <p>Корзина</p>
             </NavLink>

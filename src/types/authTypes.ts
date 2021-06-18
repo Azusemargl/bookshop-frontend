@@ -1,3 +1,5 @@
+import { Books } from './bookTypes'
+
 export type Auth = {
    email:    string
    password: string
@@ -15,6 +17,7 @@ export type Login = {
    role:   Array<string>
    balance: number
    scores: number
+   cart: string
    token:  string
    message?: string | null
 }

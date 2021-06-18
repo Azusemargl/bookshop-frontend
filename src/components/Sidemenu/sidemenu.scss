@@ -1,8 +1,9 @@
 @import '../../styles/vars';
 
 .sidemenu {
+   width: 100%;
    min-width: 23rem;
-   max-width: 30%;
+   max-width: 20%;
    padding-right: 2rem;
 
    &__element {

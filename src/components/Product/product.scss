@@ -34,19 +34,16 @@
       }
    }
 
-   &__favorites {
-      display: none;
+   .favorites {
       position: absolute;
       top: 0;
       right: 0;
-      cursor: pointer;
 
-      span {
-         color: $primary;
-         font-size: 2.4rem;
+      &__button {
+         display: none;
 
-         &:hover {
-            color: $color;
+         &.added {
+            display: block;
          }
       }
    }
@@ -145,9 +142,22 @@
       bottom: 1rem;
       right: 1rem;
 
+      &.remove {
+         display: block;
+         background-color: transparent;
+   
+         span {
+            color: $black;
+         }
+      }
+
       span {
          color: $white;
          font-size: 2.4rem;
+      }
+
+      &:disabled {
+         opacity: 0.5;
       }
    }
 
@@ -156,8 +166,10 @@
          display: flex;
       }
 
-      #{$self}__favorites {
-         display: block;
+      .favorites {
+         &__button {
+            display: block;
+         }
       }
    }
 }

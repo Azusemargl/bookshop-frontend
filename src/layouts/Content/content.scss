@@ -1,0 +1,40 @@
+@import '../../styles/vars';
+
+.content {
+   height: 100%;
+
+   &__header {
+      margin-bottom: 4rem;
+   }
+
+   &__link {
+      display: flex;
+      align-items: center;
+      color: $gray;
+
+      span {
+         margin-right: 5px;
+         font-size: 1.4rem;
+      }
+   
+      &:hover {
+         color: $color;
+      }
+   }
+   
+   &__title {
+      color: $primary;
+      font-size: 3.2rem;
+   }
+
+   &__loading {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   
+      span {
+         font-size: 5.2rem;
+      }
+   }
+}

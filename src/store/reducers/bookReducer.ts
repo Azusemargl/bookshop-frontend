@@ -2,6 +2,7 @@ import { BaseThunk } from './../store'
 import { InferAction } from "../store"
 import { Books } from '../../types/bookTypes'
 import { bookAPI } from '../../utils/api/book.api'
+import { fetchLoading } from './appReducer'
 
 // Initial data
 const initialState = {
@@ -27,12 +28,15 @@ export const actions = {
 // Thunks
 // Get all the books
 export const fetchBooks = (): Thunk => async dispatch => {
+   dispatch(fetchLoading(true))
    const res = await bookAPI.getBooks()
 
    try {
       dispatch(actions.setBooks(res))
+      dispatch(fetchLoading(false))
    } catch (e) {
       console.log(`Error: ${e}`)
+      dispatch(fetchLoading(false))
    }
 }
 

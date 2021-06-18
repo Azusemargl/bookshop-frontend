@@ -1,17 +1,19 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import classnames from 'classnames'
+import { fetchCartItem, removeCartItem } from '../../store/reducers/cartReducer'
 import { discount } from '../../utils/helpers/discount'
-import { StarFilled, StarOutlined, ShoppingCartOutlined, HeartOutlined, HeartFilled } from '@ant-design/icons'
-import { BookCard } from '../../types/bookTypes'
-import './product.scss'
-import { fetchFavorites, removeFavorites } from '../../store/reducers/userReducer'
+import Favorites from '../Favorites'
 import { AppState } from '../../store/store'
+import { BookCard } from '../../types/bookTypes'
+import { StarFilled, StarOutlined, ShoppingCartOutlined, CheckOutlined } from '@ant-design/icons'
+import './product.scss'
 
 const Product: React.FC<Props & BookCard> = React.memo((props) => {
    const dispatch = useDispatch()
-   const { auth, id, favorites } = useSelector((state: AppState) => state.user)
+   const { id, cart } = useSelector((state: AppState) => state.user)
+   const { books, isDisabled } = useSelector((state: AppState) => state.cart)
    const { _id, name, image, author, rating, review, price, past_price, sales, mainPage } = props
 
    const filled = []
@@ -23,15 +25,19 @@ const Product: React.FC<Props & BookCard> = React.memo((props) => {
       outlined.push(rating)
    }
 
-   // Set favorites books
-   const onFetchFavorites = (userId: string, bookId: string) => {
-      dispatch(fetchFavorites(userId, bookId))
+   const disabled = isDisabled.some(item => item === _id)
+   const currentCartitem = books.find(item => item.book._id === _id)
+
+   // Add cart item
+   const onCartAdd = (bookId: string, cart: string) => {
+      dispatch(fetchCartItem(bookId, cart))
    }
 
-   // Remove favorites books
-   const onDeleteFavorites = (userId: string, bookId: string) => {
-      dispatch(removeFavorites(userId, bookId))
+   // Remove cart item
+   const onCartRemove = (bookId: string, cart: string, cartProductId: string) => {
+      dispatch(removeCartItem(bookId, cart, cartProductId))
    }
+
 
    return (
       <div className={classnames("product", { "main-page": mainPage })}>
@@ -40,19 +46,12 @@ const Product: React.FC<Props & BookCard> = React.memo((props) => {
                <Link to="/" className="product__image_container">
                   <img src={image} alt={name} />
                </Link>
-               {auth && id &&
-                  <button className="product__favorites">
-                     {favorites.some(item => `${item._id}` === _id)
-                        ? <HeartFilled onClick={e => onDeleteFavorites(id, _id)} key={_id} />
-                        : <HeartOutlined onClick={e => onFetchFavorites(id, _id)} key={_id} />
-                     }
-                  </button>
-               }
+               <Favorites bookId={_id} />
                <span className="product__flag discount">− {discount(past_price, price)}%</span>
                {sales && sales >= 1000 && <span className="product__flag bestsellers">Бестселлер</span>}
             </div>
             <Link to="/">
-               <h4 className="product__name">Атака титанов. Книга 1</h4>
+               <h4 className="product__name">{name}</h4>
             </Link>
             <Link to="/">
                <p className="product__author">{author}</p>
@@ -70,9 +69,17 @@ const Product: React.FC<Props & BookCard> = React.memo((props) => {
                <p className="product__current-price">{price} ₽</p>
                <p className="product__past-price">{past_price} ₽</p>
             </div>
-            <button className="product__cart">
-               <ShoppingCartOutlined />
-            </button>
+            {books && books.length >= 1 && currentCartitem && books.some(item => item.book._id === _id) ? (
+               <button className="product__cart remove" onClick={e => (
+                  id && cart && onCartRemove(_id, cart, currentCartitem._id)
+               )} disabled={disabled}>
+                  <CheckOutlined />
+               </button>
+            ) : (
+               <button className="product__cart" onClick={e => id && cart && onCartAdd(_id, cart)} disabled={disabled}>
+                  <ShoppingCartOutlined />
+               </button>
+            )}
          </div>
       </div>
    )

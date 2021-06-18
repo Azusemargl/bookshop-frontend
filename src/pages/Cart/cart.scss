@@ -1,0 +1,80 @@
+@import '../../styles/vars';
+
+.cart {
+   &__loading {
+      min-height: 29.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+   }
+
+   &__content {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+   }
+
+   &__info {
+
+      button {
+         margin: auto;
+         display: flex;
+         align-items: center;
+
+         span {
+            margin-left: 1rem;
+         }
+      }
+   }
+
+   &__title {
+      color: $primary;
+      font-size: 2.4rem;
+   }
+
+   &__book-counter {
+      color: lighten($primary, 20%);
+   }
+
+   &__info-inner {
+      margin: 1em 0;
+   }
+
+   &__info-field {
+      display: flex;
+      align-items: center;
+
+      p {
+         color: $primary;
+
+         &:first-child {
+            margin-right: 5px;
+         }
+      }
+
+      &.total_price {
+         padding-top: 2px;
+         border-top: 1px solid rgba($black, 0.1);
+
+         p {
+            font-size: 2.1rem;
+         }
+      }
+
+      &:not(:last-child) {
+         margin-bottom: 8px;
+      }
+   }
+
+   &__scores {
+      margin-top: 1rem;
+      text-align: center;
+      color: $primary;
+      font-size: 1.4rem;
+   }
+
+   .sidebar {
+      margin-bottom: 6rem;
+   }
+}

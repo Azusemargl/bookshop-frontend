@@ -66,7 +66,9 @@
    }
 
    &__icon {
+      display: block;
       text-align: center;
+      position: relative;
       cursor: pointer;
 
       &.counter {
@@ -134,6 +136,22 @@
             color: $color;
          }
       }
+   }
+
+   &__icon-cart_count {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $white;
+      border-radius: 50%;
+      box-shadow: $shadow;
+      color: $color;
+      font-size: 1.2rem;
+      position: absolute;
+      top: -1rem;
+      right: -2px;
    }
 
    &__account-modul {

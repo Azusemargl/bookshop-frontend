@@ -74,19 +74,6 @@ input, textarea {
    display: flex;
 }
 
-.content {
+.main_inner {
    width: 80%;
-}
-
-.button {
-   padding: 2px 4rem;
-   background-color: $color;
-   border-radius: 3rem;
-   color: $white;
-   font-size: 1.9rem;
-   cursor: pointer;
-
-   &:hover {
-      background-color: darken($color, 5%);
-   }
 }

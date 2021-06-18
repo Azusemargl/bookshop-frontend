@@ -3,6 +3,7 @@ import { InferAction } from "../store"
 import { userAPI } from '../../utils/api/user.api'
 import { Auth, Login } from "../../types/authTypes"
 import { Books } from '../../types/bookTypes'
+import { string } from 'yup/lib/locale'
 
 // Initial data
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
    balance: 0,
    scores: 0,
    favorites: [] as Array<Books>,
+   cart: null as string | null,
    token: null as string | null,
    city: 'Москва',
    gender: '' as 'M' | 'F',

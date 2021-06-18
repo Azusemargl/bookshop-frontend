@@ -5,8 +5,9 @@ import { CookiesProvider } from "react-cookie"
 import { useCookies } from "react-cookie"
 import { AppState, store } from './store/store'
 import { auth as userAuth } from './store/reducers/authReducer'
-import { Home, Catalog, Favorits, Profile } from './pages'
+import { Home, Catalog, Favorits, Profile, Cart } from './pages'
 import { Header, Sidemenu, TopBar, Footer } from './components'
+import { fetchBooks } from './store/reducers/bookReducer'
 
 const Wrapper: React.FC = () => {
   const dispatch = useDispatch()
@@ -15,7 +16,11 @@ const Wrapper: React.FC = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['token'])
 
   React.useEffect(() => {
-    setCookie('token', token, {path: '/'})
+    dispatch(fetchBooks())
+  }, [])
+
+  React.useEffect(() => {
+    setCookie('token', token, { path: '/' })
   }, [token])
 
   React.useEffect(() => {
@@ -30,11 +35,12 @@ const Wrapper: React.FC = () => {
         <div className="container">
           <main className="main">
             <Sidemenu />
-            <div className="content">
+            <div className="main_inner">
               <Route exact path="/" component={Home} />
               <Route exact path="/catalog" component={Catalog} />
               <Route exact path="/favorits" component={Favorits} />
               <Route path="/profile" component={Profile} />
+              <Route path="/cart" component={Cart} />
             </div>
           </main>
         </div>

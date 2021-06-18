@@ -1,0 +1,95 @@
+@import '../../../styles/vars';
+
+.cart__item {
+   width: 100%;
+   height: fit-content;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+
+   &-info {
+      display: flex;
+      align-items: center;
+   
+      .favorites {
+         margin-right: 2rem;
+      }
+   }
+   
+   &-image {
+      width: 8rem;
+      height: 12rem;
+      margin-right: 2rem;
+   
+      img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+      }
+   }
+   
+   &-name {
+      display: block;
+      color: $primary;
+      font-size: 2.4rem;
+
+      &:hover {
+         color: $color;
+      }
+   }
+   
+   &-author {
+      color: $primary;
+
+      span {
+         margin-right: 5px;
+      }
+
+      &:hover {
+         color: $color;
+         text-decoration: underline;
+      }
+   }
+   
+   &-prices {
+      margin: 0 4rem;
+   
+      span {
+         margin-left: 5px;
+         color: $gray;
+      }
+   }
+
+   &-past_price {
+      color: $gray;
+      font-size: 1.8rem;
+      text-decoration: line-through;
+   }
+
+   &-price {
+      font-size: 2.2rem;
+   }
+   
+   &-icons {
+      display: flex;
+      align-items: center;
+      
+      span {
+         color: lighten($black, 50%);
+         font-size: 1.9rem;
+         cursor: pointer;
+      }
+   }
+
+   &-item_remove {
+      span {
+         &:hover {
+            color: $color;
+         }
+      }
+   }
+
+   &:not(:last-child) {
+      margin-bottom: 3rem;
+   }
+}

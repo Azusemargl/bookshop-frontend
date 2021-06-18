@@ -24,3 +24,9 @@ export type BookCard = {
    past_price: number
    sales?: number
 }
+
+export type BooksCart = {
+   _id: string
+   book: Books
+   count: number
+}

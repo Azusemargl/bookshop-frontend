@@ -1,8 +1,10 @@
 import { BaseThunk } from './../store'
 import { InferAction } from "../store"
 import { userAPI } from '../../utils/api/user.api'
-import { Auth, Register } from "../../types/authTypes"
 import { userFetch } from './userReducer'
+import { getCartItem } from './cartReducer'
+import { Auth, Register } from "../../types/authTypes"
+import { fetchLoading } from './appReducer'
 
 // Initial data
 const initialState = {
@@ -69,15 +71,14 @@ export const signUp = (value: Register): Thunk => async dispatch => {
 }
 // Get user token and send it for veritify to remain auth after page refresh
 export const auth = (token: string): Thunk => async dispatch => {
-   dispatch(actions.setLoading(true))
    const res = await userAPI.auth(token)
+   
    try {
       dispatch(userFetch(res, token))
-      dispatch(actions.setLoading(false))
+      dispatch(getCartItem(res.cart))
       dispatch(actions.setApp(true))
    } catch(e) {
       console.log(`Error: ${e}`)
-      dispatch(actions.setLoading(false))
    }
 }
 
