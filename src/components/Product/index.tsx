@@ -26,7 +26,7 @@ const Product: React.FC<Props & BookCard> = React.memo((props) => {
    }
 
    const disabled = isDisabled.some(item => item === _id)
-   const currentCartitem = books.find(item => item.book._id === _id)
+   const currentCartitem = books.length && books.find(item => item.book._id === _id)
 
    // Add cart item
    const onCartAdd = (bookId: string, cart: string) => {

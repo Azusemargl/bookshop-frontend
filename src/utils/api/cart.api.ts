@@ -10,5 +10,8 @@ export const cartAPI = {
    },
    removeBooks: (bookId: string, cartId: string, cartProductId: string) => {
       return instance.post<Array<BooksCart>>('/cart/remove', {bookId, cartId, cartProductId}).then(res => res.data)
+   },
+   changeCounter: (itemId: string, count: number) => {
+      return instance.post<{count: number}>('/cart/count', {itemId, count}).then(res => res.data)
    }
 }

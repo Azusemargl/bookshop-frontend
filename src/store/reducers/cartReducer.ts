@@ -25,6 +25,13 @@ export const cartReducer = (state = initialState, action: Action): InitialState 
       case 'CART/REMOVE_DISABLED':
          return { ...state, isDisabled: [...state.isDisabled.filter(item => item !== action.payload)] }
 
+      case 'CART/SET_COUNT_BOOKS':
+         return {...state, books: state.books.map(book => book._id === action.payload.id
+               ? { ...book, count: action.payload.count }
+               : book
+            ) 
+         }
+
       default:
          return state
    }
@@ -35,7 +42,8 @@ export const actions = {
    setBooks: (payload: Array<BooksCart>) => ({ type: 'CART/SET_BOOKS', payload }) as const,
    setLoading: (payload: boolean) => ({ type: 'CART/SET_LOADING', payload }) as const,
    setDisabled: (payload: string) => ({ type: 'CART/SET_DISABLED', payload }) as const,
-   removeDisabled: (payload: string) => ({ type: 'CART/REMOVE_DISABLED', payload }) as const
+   removeDisabled: (payload: string) => ({ type: 'CART/REMOVE_DISABLED', payload }) as const,
+   setCountBooks: (payload: CounterResponse) => ({ type: 'CART/SET_COUNT_BOOKS', payload }) as const
 }
 
 // Thunks
@@ -52,6 +60,7 @@ export const getCartItem = (id: string): Thunk => async dispatch => {
       dispatch(actions.setLoading(false))
    }
 }
+// Set new cart item
 export const fetchCartItem = (bookId: string, cartId: string): Thunk => async dispatch => {
    dispatch(actions.setDisabled(bookId))
    const res = await cartAPI.setBooks(bookId, cartId)
@@ -64,6 +73,7 @@ export const fetchCartItem = (bookId: string, cartId: string): Thunk => async di
       dispatch(actions.removeDisabled(bookId))
    }
 }
+// Remove current cart item
 export const removeCartItem = (bookId: string, cartId: string, cartProductId: string): Thunk => async dispatch => {
    dispatch(actions.setDisabled(bookId))
    const res = await cartAPI.removeBooks(bookId, cartId, cartProductId)
@@ -78,8 +88,20 @@ export const removeCartItem = (bookId: string, cartId: string, cartProductId: st
       dispatch(actions.setLoading(false))
    }
 }
+// Change product count
+export const changeCountCartItem = (itemId: string, count: number): Thunk => async dispatch => {
+   const res = await cartAPI.changeCounter(itemId, count)
+   const data = { id: itemId, count: res.count }
+
+   try {
+      dispatch(actions.setCountBooks(data))
+   } catch (e) {
+      console.log(`Error: ${e}`)
+   }
+}
 
 // Types
 type InitialState = typeof initialState
 type Action = InferAction<typeof actions>
 type Thunk = BaseThunk<Action>
+type CounterResponse = { id: string, count: number }

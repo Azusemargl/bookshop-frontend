@@ -17,8 +17,8 @@ const Cart: React.FC = React.memo(() => {
    const books = useSelector((state: AppState) => state.books.items)
 
    // Order data
-   const totalPastPrice = bookId && bookId.reduce((prev, next) => prev + next.book.past_price, 0)
-   const totalPrice = bookId && bookId.reduce((prev, next) => prev + next.book.price, 0)
+   const totalPastPrice = bookId && bookId.reduce((prev, next) => prev + next.book.past_price * next.count, 0)
+   const totalPrice = bookId && bookId.reduce((prev, next) => prev + next.book.price * next.count, 0)
    const scores = totalPrice * 0.01
 
    return (
@@ -66,10 +66,7 @@ const Cart: React.FC = React.memo(() => {
                               <RightOutlined />
                            </Button>
                            <p className="cart__scores">
-                              {scores === 1
-                                 ? <span>Вы получите + {scores} бонус</span>
-                                 : <span>Вы получите + {scores} бонуса</span>
-                              }
+                              Вы получите бонусов: <span>{scores.toFixed(1)}</span>
                            </p>
                         </div>
                      </Sidebar>
