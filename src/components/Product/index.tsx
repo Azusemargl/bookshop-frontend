@@ -38,19 +38,18 @@ const Product: React.FC<Props & BookCard> = React.memo((props) => {
       dispatch(removeCartItem(bookId, cart, cartProductId))
    }
 
-
    return (
       <div className={classnames("product", { "main-page": mainPage })}>
          <div>
             <div className="product__image">
-               <Link to="/" className="product__image_container">
+               <Link to={`/catalog/${_id}`} className="product__image_container">
                   <img src={image} alt={name} />
                </Link>
                <Favorites bookId={_id} />
                <span className="product__flag discount">− {discount(past_price, price)}%</span>
                {sales && sales >= 1000 && <span className="product__flag bestsellers">Бестселлер</span>}
             </div>
-            <Link to="/">
+            <Link to={`/catalog/${_id}`}>
                <h4 className="product__name">{name}</h4>
             </Link>
             <Link to="/">

@@ -3,12 +3,17 @@ export type Books = {
    name: string
    image: string
    author: string
+   publisher: string
    rating: number
    review: number
    price: number
    past_price: number
    category: string
-   yaer: number
+   year_of_issue: number
+   cover_type: string
+   number_of_pages: number
+   age_restrictions: number
+   description: string
    date: number
    sales: number
 }

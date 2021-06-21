@@ -1,0 +1,143 @@
+@import '../../styles/vars';
+
+.detail {
+   &__breadcrumbs {
+      margin-bottom: 2rem;
+      color: $primary;
+   }
+
+   &__intro {
+      display: flex;
+      margin-bottom: 3rem;
+   }
+
+   &__image {
+      width: 30rem;
+      height: 45rem;
+      margin-right: 4rem;
+
+      img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+      }
+   }
+
+   &__name {
+      color: $primary;
+      font-size: 2.8rem;
+      font-weight: 600;
+   }
+
+   &__rating {
+      margin: 1rem 0 2rem;
+      display: flex;
+      align-items: center;
+
+      &-inner {
+         display: flex;
+         align-items: center;
+
+         &:first-child {
+            margin-right: 1rem;
+         }
+      }
+
+      span {
+         margin-right: 5px;
+         color: $color;
+         font-size: 1.9rem;
+      }
+
+      p {
+         font-size: 1.9rem;
+         color: lighten($primary, 20%);
+      }
+   }
+
+   &__price {
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: flex-end;
+
+      p {
+         &:first-child {
+            margin-right: 2rem;
+            color: $primary;
+            font-size: 3.8rem;
+         }
+
+         &:last-child {
+            color: $gray;
+            font-size: 2.1rem;
+            text-decoration: line-through;
+         }
+      }
+
+      span {
+         color: $gray;
+      }
+   }
+
+   &__actions {
+      display: flex;
+      align-items: center;
+
+      .favorites {
+         margin-left: 2rem;
+
+         span {
+            color: $gray;
+            font-size: 2.2rem;
+         }
+      }
+   }
+
+   &__btn {
+      &:disabled {
+         opacity: 0.5;
+      }
+   }
+
+   &__info {
+      margin-top: 3rem;
+   }
+
+   &__title {
+      margin-bottom: 5px;
+      font-size: 2.2rem;
+      color: $primary;
+      font-weight: 600;
+   }
+
+   &__info-row {
+      width: 45rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 1.7rem;
+
+      span {
+         width: 50%;
+
+         &:first-child {
+            color: lighten($primary, 20%);
+         }
+
+         &:last-child {
+            color: $primary;
+
+            a {
+               &:hover {
+                  color: $color;
+                  text-decoration: underline;
+               }
+            }
+         }
+      }
+   }
+
+   &__description {
+      margin-bottom: 3rem;
+   }
+}
