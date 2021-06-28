@@ -1,9 +1,8 @@
 import { BaseThunk } from './../store'
 import { InferAction } from "../store"
 import { userAPI } from '../../utils/api/user.api'
-import { Auth, Login } from "../../types/authTypes"
+import { Login } from "../../types/authTypes"
 import { Books } from '../../types/bookTypes'
-import { string } from 'yup/lib/locale'
 
 // Initial data
 const initialState = {

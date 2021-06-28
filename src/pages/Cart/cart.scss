@@ -17,10 +17,11 @@
 
    &__info {
 
-      button {
+      a {
          margin: auto;
          display: flex;
          align-items: center;
+         font-size: 1.7rem;
 
          span {
             margin-left: 1rem;

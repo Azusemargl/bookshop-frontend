@@ -1,0 +1,85 @@
+@import '../../styles/vars';
+
+.order {
+   h4 {
+      margin-bottom: 5px;
+      color: $primary;
+      font-size: 2.1rem;
+   }
+
+   button {
+      margin-top: 2rem;
+   }
+   
+   &__input {
+      margin-left: 1rem;
+      padding: 2px 5px;
+      border-bottom: 1px solid rgba($black, 0.5);
+      font-size: 1.8rem;
+
+      &.error {
+         border-bottom: 1px solid rgba($red, 0.5);
+      }
+   }
+   
+   &__error {
+      color: $red;
+      font-size: 1.5rem;
+   }
+
+   &__data {
+      margin-bottom: 2rem;
+   }
+
+   &__field {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+   }
+
+   &__label {
+      margin-right: 5px;
+      color: $gray;
+   }
+
+   &__value {
+      display: flex;
+      align-items: center;
+
+      span {
+         display: none;
+         margin-left: 5px;
+         color: $primary;
+      }
+
+      &.change {
+         &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+   
+            span {
+               display: block;
+            }
+         }
+      }
+   }
+
+   &__book {
+      display: flex;
+      align-items: center;
+
+      span {
+         color: $primary;
+         font-size: 1.8rem;
+      }
+
+      a {
+         margin: 0 1rem;
+
+         &:hover {
+            color: $color;
+            text-decoration: underline;
+         }
+      }
+   }
+}

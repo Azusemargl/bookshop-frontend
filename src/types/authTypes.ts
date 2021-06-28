@@ -14,6 +14,7 @@ export type Login = {
       photo: string | null,
       error: string | null
    }
+   city: string
    role:   Array<string>
    balance: number
    scores: number

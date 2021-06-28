@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Button, Empty, Section } from '../../components'
 import { Content, Sidebar } from '../../layouts'
@@ -61,10 +62,10 @@ const Cart: React.FC = React.memo(() => {
                                  <p>{totalPrice} ₽</p>
                               </div>
                            </div>
-                           <Button size={'small'}>
+                           <Link to="/order" className="button">
                               <p>Оформить заказ</p>
                               <RightOutlined />
-                           </Button>
+                           </Link>
                            <p className="cart__scores">
                               Вы получите бонусов: <span>{scores.toFixed(1)}</span>
                            </p>
