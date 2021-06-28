@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import classnames from 'classnames'
 import { Content } from '../../layouts'
@@ -8,8 +8,6 @@ import { AppState } from '../../store/store'
 import { Order as OrderType } from '../../types/orderTypes'
 import { EditOutlined, LoadingOutlined } from '@ant-design/icons'
 import './order.scss'
-
-// TODO: Create redirect to success order page
 
 const Order: React.FC = React.memo(() => {
    // Page config
@@ -21,6 +19,7 @@ const Order: React.FC = React.memo(() => {
    const [order, setOrder] = React.useState<OrderType>()
    const [address, setAddress] = React.useState('')
    const [isAddress, setIsAddress] = React.useState(true)
+   const [redirect, setRedirect] = React.useState(false)
 
    // Order data from state
    const cartBook = useSelector((state: AppState) => state.cart.books)
@@ -40,7 +39,7 @@ const Order: React.FC = React.memo(() => {
    // Dispatch order data
    const onOrder = () => {
       address.length > 0 && order ? dispatch(fetchOrder(order)) : setIsAddress(false)
-      console.log('redirect')
+      setRedirect(true)
    }
 
    // Order fields
@@ -67,6 +66,8 @@ const Order: React.FC = React.memo(() => {
          completed: false
       })
    }, [address])
+
+   if (redirect) return <Redirect to="/order/success" />
 
    return (
       <Content title={title}>
