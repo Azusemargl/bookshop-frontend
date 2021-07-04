@@ -2,14 +2,15 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { AppState } from '../../store/store'
 import { Products } from '../../containers'
-import { Filter } from '../../components'
+import { Filter, Spiner } from '../../components'
 import { Sidebar } from '../../layouts'
 import './catalog.scss'
 
 // TODO: filter by category
 
 const Catalog: React.FC = React.memo(() => {
-   const books = useSelector((state: AppState) => state.books.items)
+   const isLoading = useSelector((state: AppState) => state.app.isLoading)
+   const books = useSelector((state: AppState) => state.filter.books)
 
    const [filter, setFilter] = React.useState(books)
    const [value, setValue] = React.useState('')
@@ -21,7 +22,10 @@ const Catalog: React.FC = React.memo(() => {
    return (
       <Sidebar>
          <div className="books-catalog__products">
-            <Products books={filter} />
+            {isLoading
+               ? <Spiner />
+               : <Products books={filter} />
+            }
          </div>
          <Filter />
       </Sidebar>

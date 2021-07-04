@@ -38,7 +38,7 @@ const Wrapper: React.FC = () => {
             <div className="main_inner">
               <Route exact path="/" component={Home} />
               <Route exact path="/catalog" component={Catalog} />
-              <Route exact path="/catalog/:id?" component={Detail} />
+              <Route exact path="/catalog/:id" component={Detail} />
               <Route exact path="/favorits" component={Favorits} />
               <Route exact path="/cart" component={Cart} />
               <Route exact path="/order" component={Order} />
