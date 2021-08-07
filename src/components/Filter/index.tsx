@@ -8,7 +8,7 @@ import { AppState } from '../../store/store'
 import { FilterTypes } from '../../types/filterTypes'
 import './filter.scss'
 
-const Filter = () => {
+const Filter: React.FC = React.memo(() => {
    const history = useHistory()
    const dispatch = useDispatch()
 
@@ -19,43 +19,58 @@ const Filter = () => {
    const books = [... new Set(booksState.map(book => book.category))] // Output unique categories
    const authors = [... new Set(booksState.map(book => book.author))] // Output unique authors
 
+   // Get URI data for the following parsing
+   const uri = decodeURIComponent(history.location.search)
+   const uriObj = queryString.parse(uri) as FilterTypes
+
    // Filters
-   const [genresFilter, setGenresFilter] = React.useState<Array<string>>([])
-   const [authorsFilter, setAuthorsFilter] = React.useState<Array<string>>([])
+   const [genresFilter, setGenresFilter] = React.useState<Array<string>>(uriObj.genres?.split(',') || [])
+   const [authorsFilter, setAuthorsFilter] = React.useState<Array<string>>(uriObj.authors?.split(',') || [])
+   const [minPrice, setMinPrice] = React.useState<number | null>()
+   const [maxPrice, setMaxPrice] = React.useState<number | null>()
 
-   // Query dispatch
-   React.useEffect(() => {
+   // URI data parsing function
+   const filterOnChange = (currentFilter: FilterTypes) => {
       const parsed = queryString.parse(history.location.search) as FilterTypes
+      let actualFilter = currentFilter
 
-      let actualFilter = filter
+      if (parsed) actualFilter = { ...parsed }
 
-      if(parsed) actualFilter = {...parsed}
+      actualFilter && dispatch(fetchFilterBooks(actualFilter)) 
+   }
 
-      actualFilter && dispatch(fetchFilterBooks(actualFilter))
+   // Set filter state during URI changing
+   React.useEffect(() => {
+      filterOnChange(filter)
    }, [history.location.search])
 
-   // URI change
+   // Update filter state during filter item toggle
    React.useEffect(() => {
-      history.push({
-         pathname: 'catalog',
-         search: `?genres=${genresFilter}&authors=${authorsFilter}`
-      })
-   }, [genresFilter, authorsFilter])
-
+      if (genresFilter?.length || authorsFilter?.length || minPrice || maxPrice) {
+         history.push({
+            pathname: '/catalog',
+            search: (
+               `?${genresFilter.length ? `genres=${genresFilter}&` : ''}` +
+               `${authorsFilter.length ? `authors=${authorsFilter}&` : ''}` +
+               `${minPrice ? `minPrice=${minPrice}&` : ''}` +
+               `${maxPrice ? `maxPrice=${maxPrice}` : ''}`
+            )
+         })
+         
+         filterOnChange(filter)
+      }
+   }, [genresFilter, authorsFilter, minPrice, maxPrice])
+   
    return (
       <div className="filter">
          <FilterBlock title="Жанры" category={books} filter={genresFilter} setFilter={setGenresFilter} />
          <FilterBlock title="Авторы" category={authors} filter={authorsFilter} setFilter={setAuthorsFilter} />
+         <div className="filter__prices">
+            <input type="number" value={minPrice || ''} onChange={e => setMinPrice(+e.target.value)} />
+            <input type="number" value={maxPrice || ''} onChange={e => setMaxPrice(+e.target.value)} />
+         </div>
       </div>
    )
-}
+})
 
 export default Filter
-
-// Types
-type FilterBlockProps = {
-   title: string
-   category: Array<string>
-   filter: Array<string>
-   setFilter: (value: Array<string>) => void
-}

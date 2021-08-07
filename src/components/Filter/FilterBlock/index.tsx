@@ -1,11 +1,14 @@
 import React from 'react'
 
 const FilterBlock: React.FC<Props> = React.memo(({ title, category, filter, setFilter }) => {
-   
-   // Categories selector
-   const onCategoriesSelect = (filter: Array<string>, setFilter: (value: Array<string>) => void, category: string) => {
-      if (filter.some(item => item.includes(category))) setFilter([...filter.filter(item => item !== category)])
-      else setFilter([...filter, category])
+
+   // Categories selector for checkbox toggle and filter state changing
+   const onCategoriesSelect = (filter: Array<string>, setFilter: (value: Array<string>) => void, currentCategory: string) => {
+      if (filter.some(item => item.includes(currentCategory))) {
+         if (filter.length === 1) setFilter(['']) // if current filter item is the last object of array
+         else setFilter([...filter.filter(item => item !== currentCategory)]) // or remove current filter
+      }
+      else setFilter([...filter, currentCategory])
    }
 
    return (

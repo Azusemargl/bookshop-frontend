@@ -48,6 +48,7 @@ export const fetchFilterBooks = (filter: FilterTypes): Thunk => async dispatch =
 
    try {
       dispatch(actions.setBooks(res))
+      dispatch(actions.setFilter(filter))
       dispatch(fetchLoading(false))
    } catch (e) {
       console.log(`Error: ${e}`)
