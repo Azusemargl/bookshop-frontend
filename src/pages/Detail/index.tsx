@@ -44,6 +44,7 @@ const DetailContainer: React.FC = React.memo(() => {
 const Detail: React.FC<Props> = React.memo((props) => {
    const dispatch = useDispatch()
    const cart = useSelector((state: AppState) => state.cart.books)
+   const auth = useSelector((state: AppState) => state.user.auth)
    const { isDisabled, isLoading } = useSelector((state: AppState) => state.cart)
    const {
       books, cartId, bookId, name, image, rating,
@@ -53,8 +54,10 @@ const Detail: React.FC<Props> = React.memo((props) => {
    } = props
 
    const disabled = isDisabled.some(item => item === bookId) // Disable check
-   const isCart = cart.some(item => item.book._id === bookId) // Check item cart existing
+   let isCart = false // Check item cart existing
 
+   if (auth) isCart = cart.some(item => item.book._id === bookId)
+   
    // Add cart item
    const onCartAdd = (bookId: string, cart: string) => {
       dispatch(fetchCartItem(bookId, cart))
@@ -106,7 +109,7 @@ const Detail: React.FC<Props> = React.memo((props) => {
                   <h4 className="detail__title">Характеристики:</h4>
                   <p className="detail__info-row">
                      <span>Автор:</span>
-                     <span><Link to={`/catalog/`}>{author}</Link></span>
+                     <span><Link to={`/catalog?authors=${author}`}>{author}</Link></span>
                   </p>
                   <p className="detail__info-row">
                      <span>Издательство:</span>
@@ -114,7 +117,7 @@ const Detail: React.FC<Props> = React.memo((props) => {
                   </p>
                   <p className="detail__info-row">
                      <span>Категория:</span>
-                     <span><Link to={`/catalog/`}>{category}</Link></span>
+                     <span><Link to={`/catalog?genres=${category}`}>{category}</Link></span>
                   </p>
                   <p className="detail__info-row">
                      <span>Тип обложки:</span>

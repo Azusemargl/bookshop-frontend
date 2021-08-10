@@ -1,31 +1,45 @@
 import React from 'react'
+import AuthorSearch from './AuthorSearch'
+import FilterBlockInner from './FilterBlockInner'
 
-const FilterBlock: React.FC<Props> = React.memo(({ title, category, filter, setFilter }) => {
+const FilterBlock: React.FC<Props> = React.memo(({ category, filter, type, setFilter }) => {
+   const [author, setAuthor] = React.useState('')
 
    // Categories selector for checkbox toggle and filter state changing
-   const onCategoriesSelect = (filter: Array<string>, setFilter: (value: Array<string>) => void, currentCategory: string) => {
+   const onCategoriesSelect: onCategoriesSelectProps = (filter, setFilter, currentCategory) => {
       if (filter.some(item => item.includes(currentCategory))) {
          if (filter.length === 1) setFilter(['']) // if current filter item is the last object of array
          else setFilter([...filter.filter(item => item !== currentCategory)]) // or remove current filter
       }
       else setFilter([...filter, currentCategory])
-   }
 
+      if (type === 'search') setAuthor('')
+   }
+   
    return (
-      <div className="filter__block">
-         <p className="filter__title">{title}:</p>
-         <div className="filter__list">
-            {category.map(item => {
+      <div className="filter__list">
+         {type === 'search' ? (
+            <AuthorSearch
+               author={author}
+               setAuthor={setAuthor}
+               category={category}
+               filter={filter}
+               setFilter={setFilter}
+               onCategoriesSelect={onCategoriesSelect}
+            />
+         ) : (
+            category.map(item => {
                return (
-                  <div className="filter__list-box" key={item}>
-                     <input type="checkbox" checked={filter.some(value => value === item)} id={item} value={item} onChange={e => {
-                        return onCategoriesSelect(filter, setFilter, item)
-                     }} />
-                     <label htmlFor={item}>{item}</label>
-                  </div>
+                  <FilterBlockInner
+                     key={item}
+                     item={item}
+                     filter={filter}
+                     setFilter={setFilter}
+                     onCategoriesSelect={onCategoriesSelect}
+                  />
                )
-            })}
-         </div>
+            })
+         )}
       </div>
    )
 })
@@ -34,8 +48,14 @@ export default FilterBlock
 
 // Types
 type Props = {
-   title: string
    category: Array<string>
    filter: Array<string>
+   type?: 'checkbox' | 'search'
    setFilter: (value: Array<string>) => void
 }
+
+export type onCategoriesSelectProps = (
+   filter: Array<string>,
+   setFilter: (value: Array<string>) => void,
+   currentCategory: string
+) => void

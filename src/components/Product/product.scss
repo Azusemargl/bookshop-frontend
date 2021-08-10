@@ -83,10 +83,6 @@
       margin-bottom: 3px;
       color: $primary;
       transition: color .1s linear;
-
-      &:hover {
-         color: $color;
-      }
    }
 
    &__rating {

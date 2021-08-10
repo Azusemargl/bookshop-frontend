@@ -52,9 +52,7 @@ const Product: React.FC<Props & BookCard> = React.memo((props) => {
             <Link to={`/catalog/${_id}`}>
                <h4 className="product__name">{name}</h4>
             </Link>
-            <Link to="/">
-               <p className="product__author">{author}</p>
-            </Link>
+            <p className="product__author">{author}</p>
             <div className="product__rating">
                <div className="product__stars">
                   {filled.map(filled => <span key={Math.random()}><StarFilled /></span>)}

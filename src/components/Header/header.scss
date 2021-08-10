@@ -28,6 +28,10 @@
       max-width: 56rem;
       margin: 0 1rem;
       position: relative;
+
+      &-icon {
+         cursor: pointer;
+      }
    }
 
    &__search-filed {
