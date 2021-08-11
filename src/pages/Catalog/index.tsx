@@ -6,8 +6,6 @@ import { Empty, Filter, Spiner } from '../../components'
 import { Sidebar } from '../../layouts'
 import './catalog.scss'
 
-// TODO: filter by category
-
 const Catalog: React.FC = React.memo(() => {
    const isLoading = useSelector((state: AppState) => state.app.isLoading)
    const books = useSelector((state: AppState) => state.filter.books)

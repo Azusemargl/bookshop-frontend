@@ -5,7 +5,7 @@ import { CookiesProvider } from "react-cookie"
 import { useCookies } from "react-cookie"
 import { AppState, store } from './store/store'
 import { auth as userAuth } from './store/reducers/authReducer'
-import { Home, Catalog, Favorits, Profile, Cart, Order, Detail, OrderSuccess } from './pages'
+import { Home, Catalog, Favorits, Profile, Cart, Order, Detail, OrderSuccess, Search } from './pages'
 import { Header, Sidemenu, TopBar, Footer } from './components'
 import { fetchBooks } from './store/reducers/bookReducer'
 
@@ -44,6 +44,7 @@ const Wrapper: React.FC = () => {
               <Route exact path="/order" component={Order} />
               <Route exact path="/order/success" component={OrderSuccess} />
               <Route path="/profile" component={Profile} />
+              <Route path="/search" component={Search} />
             </div>
           </main>
         </div>

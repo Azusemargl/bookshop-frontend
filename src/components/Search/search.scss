@@ -1,0 +1,33 @@
+@import '../../styles/vars';
+
+.search {
+   width: 100%;
+   max-width: 56rem;
+   margin: 0 1rem;
+   position: relative;
+
+   &__filed {
+      width: 100%;
+      padding: 1rem 1rem 1rem 4rem;
+      border-bottom: 1px solid $gray;
+      font-size: 1.6rem;
+
+      &:focus {
+         border-bottom: 1px solid $color;
+      }
+   }
+
+   &__icon {
+      color: $gray;
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+
+      span {
+         font-size: 2.1rem;
+      }
+
+   }
+}
