@@ -2,48 +2,21 @@
   {
     "id": 1,
     "name": "Готовим класс к школе",
-    "image": "http://localhost:3000/static/media/1.c4b99a97.jpg"
+    "link": "?genres=Наука"
   },
   {
     "id": 2,
     "name": "Книжный фестиваль скидок",
-    "image": "http://localhost:3000/static/media/2.86b52648.jpg",
-    "link": "catalog"
+    "link": "?genres=Наука"
   },
   {
     "id": 3,
     "name": "Большая школьная распродажа",
-    "image": "http://localhost:3000/static/media/3.92935687.jpg",
-    "link": "catalog"
+    "link": "?genres=Наука"
   },
   {
     "id": 4,
     "name": "Вернем 18% от любого заказа бонусными рублями",
-    "image": "http://localhost:3000/static/media/4.fb0fc0e6.jpg",
-    "link": "catalog"
-  },
-  {
-    "id": 5,
-    "name": "Готовим класс к школе",
-    "image": "http://localhost:3000/static/media/1.c4b99a97.jpg",
-    "link": "catalog"
-  },
-  {
-    "id": 6,
-    "name": "Книжный фестиваль скидок",
-    "image": "http://localhost:3000/static/media/2.86b52648.jpg",
-    "link": "catalog"
-  },
-  {
-    "id": 7,
-    "name": "Большая школьная распродажа",
-    "image": "http://localhost:3000/static/media/3.92935687.jpg",
-    "link": "catalog"
-  },
-  {
-    "id": 8,
-    "name": "Вернем 18% от любого заказа бонусными рублями",
-    "image": "http://localhost:3000/static/media/4.fb0fc0e6.jpg",
-    "link": "catalog"
+    "link": "?genres=Наука"
   }
 ]

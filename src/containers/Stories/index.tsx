@@ -13,7 +13,7 @@ const Stories: React.FC = React.memo(() => {
       <div className="stories">
          <Slider {...stories_slider}>
             {stories.map(story => (
-               <Story key={story.id} id={story.id} name={story.name} image={story.image} link={story.link} />
+               <Story key={story.id} id={story.id} name={story.name} link={story.link} />
             ))}
          </Slider>
       </div>

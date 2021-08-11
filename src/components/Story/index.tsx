@@ -2,12 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './story.scss'
 
-const Stories: React.FC<Props> = React.memo(({ id, name, image, link}) => {
+const Stories: React.FC<Props> = React.memo(({ id, name, link}) => {
    return (
       <>
          <div className="story">
-            <Link to={`/${link}`} className="story__image">
-               <img src={image} alt={name} />
+            <Link to={`catalog/${link}`} className="story__image">
+               <img src={`/images/stories/${id}.jpg`} alt={name} />
             </Link>
          </div>
       </>
@@ -20,6 +20,5 @@ export default Stories
 type Props = {
    id: number
    name: string
-   image: string
    link: string
 }
