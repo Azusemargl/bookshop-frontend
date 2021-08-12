@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { actions } from '../../store/reducers/userReducer'
+import { actions as appActions } from '../../store/reducers/appReducer'
+import { actions as userActions } from '../../store/reducers/userReducer'
 import { ContainerOutlined, HeartOutlined, LogoutOutlined, SettingOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 import { AppState } from '../../store/store'
 
@@ -16,8 +17,11 @@ export const HeaderButtons: React.FC<Props> = React.memo(({ login, setShowAuth, 
    const onLogout = () => {
       setShowAuth(false)
       setAccountModul(false)
+
       removeCookie('token')
-      dispatch(actions.logout())
+
+      dispatch(userActions.logout())
+      dispatch(appActions.setAuthForm(false))
    }
 
    const accountModelWrapperRef = React.useRef<HTMLDivElement>(null)

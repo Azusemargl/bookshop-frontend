@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import classnames from 'classnames'
 import { fetchCartItem, removeCartItem } from '../../store/reducers/cartReducer'
+import { actions } from '../../store/reducers/appReducer'
 import { discount } from '../../utils/helpers/discount'
 import Favorites from '../Favorites'
 import { AppState } from '../../store/store'
@@ -12,7 +13,7 @@ import './product.scss'
 
 const Product: React.FC<Props & BookCard> = React.memo((props) => {
    const dispatch = useDispatch()
-   const { id, cart } = useSelector((state: AppState) => state.user)
+   const { id, auth, cart } = useSelector((state: AppState) => state.user)
    const { books, isDisabled } = useSelector((state: AppState) => state.cart)
    const { _id, name, image, author, rating, review, price, past_price, sales, mainPage } = props
 
@@ -29,8 +30,10 @@ const Product: React.FC<Props & BookCard> = React.memo((props) => {
    const currentCartitem = books.length && books.find(item => item.book._id === _id)
 
    // Add cart item
-   const onCartAdd = (bookId: string, cart: string) => {
-      dispatch(fetchCartItem(bookId, cart))
+   const onCartAdd = (bookId: string | null, cart: string | null) => {
+      auth && bookId && cart
+         ? dispatch(fetchCartItem(bookId, cart))
+         : dispatch(actions.setAuthForm(true))
    }
 
    // Remove cart item
@@ -55,8 +58,8 @@ const Product: React.FC<Props & BookCard> = React.memo((props) => {
             <p className="product__author">{author}</p>
             <div className="product__rating">
                <div className="product__stars">
-                  {filled.map(filled => <span key={Math.random()}><StarFilled /></span>)}
-                  {outlined.map(outlined => <span key={Math.random()}><StarOutlined /></span>)}
+                  {filled.map(_ => <span key={Math.random()}><StarFilled /></span>)}
+                  {outlined.map(_ => <span key={Math.random()}><StarOutlined /></span>)}
                </div>
                <p className="product__review">{review}</p>
             </div>
@@ -66,14 +69,14 @@ const Product: React.FC<Props & BookCard> = React.memo((props) => {
                <p className="product__current-price">{price} ₽</p>
                <p className="product__past-price">{past_price} ₽</p>
             </div>
-            {books && books.length >= 1 && currentCartitem && books.some(item => item.book._id === _id) ? (
-               <button className="product__cart remove" onClick={e => (
+            {auth && books && books.length >= 1 && currentCartitem && books.some(item => item.book._id === _id) ? (
+               <button className="product__cart remove" onClick={() => (
                   id && cart && onCartRemove(_id, cart, currentCartitem._id)
                )} disabled={disabled}>
                   <CheckOutlined />
                </button>
             ) : (
-               <button className="product__cart" onClick={e => id && cart && onCartAdd(_id, cart)} disabled={disabled}>
+               <button className="product__cart" onClick={() => onCartAdd(_id, cart)} disabled={disabled}>
                   <ShoppingCartOutlined />
                </button>
             )}

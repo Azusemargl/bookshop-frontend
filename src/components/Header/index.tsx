@@ -10,6 +10,7 @@ import { HeaderButtons } from './HeaderButtons'
 import './header.scss'
 
 const Header: React.FC<Props> = React.memo(({ removeCookie }) => {
+   const { isAuthForm } = useSelector((state: AppState) => state.app)
    const { auth, login } = useSelector((state: AppState) => state.user)
 
    const [showAuth, setShowAuth] = React.useState(false) // auth window state
@@ -19,6 +20,11 @@ const Header: React.FC<Props> = React.memo(({ removeCookie }) => {
       document.body.classList.add('modal-open')
       setShowAuth(true)
    }, [setShowAuth])
+
+   // Set form boolean value
+   React.useEffect(() => {
+      setShowAuth(isAuthForm)
+   }, [isAuthForm])
 
    return (
       <header className="header">

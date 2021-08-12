@@ -4,7 +4,8 @@ import { InferAction } from "../store"
 // Initial data
 const initialState = {
    app: false,
-   isLoading: false
+   isLoading: false,
+   isAuthForm: false
 }
 
 // Reducer body
@@ -16,6 +17,9 @@ export const appReducer = (state = initialState, action: Action): InitialState =
       case 'APP/SET_LOADING':
          return { ...state, isLoading: action.payload }
 
+      case 'APP/SET_AUTHFORM':
+         return { ...state, isAuthForm: action.payload }
+
 
       default:
          return state
@@ -26,6 +30,7 @@ export const appReducer = (state = initialState, action: Action): InitialState =
 export const actions = {
    setApp: (payload: boolean) => ({ type: 'APP/SET_APP', payload }) as const,
    setLoading: (payload: boolean) => ({ type: 'APP/SET_LOADING', payload }) as const,
+   setAuthForm: (payload: boolean) => ({ type: 'APP/SET_AUTHFORM', payload }) as const,
 }
 
 // Thunks
