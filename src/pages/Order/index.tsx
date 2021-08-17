@@ -56,7 +56,7 @@ const Order: React.FC = React.memo(() => {
 
    React.useEffect(() => {
       setOrder({
-         cartProductsId: cartBook,
+         books: cartBook,
          price: totalPrice,
          userId: id,
          name: login,

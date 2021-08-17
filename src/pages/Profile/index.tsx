@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { AppState } from '../../store/store'
 import { Info } from './ProfileInfo'
 import { Settings } from './ProfileSettings'
+import { Empty } from '../../components'
 import { UserOutlined, SettingOutlined, ContainerOutlined } from '@ant-design/icons'
 import './profile.scss'
 
@@ -21,7 +22,23 @@ const Orders: React.FC = React.memo(() => {
    const { orders } = useSelector((state: AppState) => state.user)
 
    return (
-      <div className="profile__orders"></div>
+      <div className="profile__orders">
+         {!orders.some(item => item === null) ? (
+            <div className="order">
+               <div className="order__books">
+                  {orders.map((order, index) => (
+                     <div className="order__item" key={index}>
+                        <h4>Заказ №{order._id}</h4>
+                        <p>Статус: {order.completed ? "завершен" : "в процессе"}</p>
+                        <p>Стоимость: {order.price} ₽</p>
+                     </div>
+                  ))}
+               </div>
+            </div>
+         ) : (
+            <Empty title="Нет заказов" />
+         )}
+      </div>
    )
 })
 

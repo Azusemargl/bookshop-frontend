@@ -49,7 +49,7 @@ const Detail: React.FC<Props> = React.memo((props) => {
    const {
       books, cartId, bookId, name, image, rating,
       review, price, past_price, author, publisher,
-      year, category, cover_type, number_of_pages,
+      category, cover_type, number_of_pages,
       age_restrictions, description
    } = props
 

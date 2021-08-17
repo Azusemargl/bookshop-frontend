@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Button, Empty, Section } from '../../components'
+import { Empty, Section } from '../../components'
 import { Content, Sidebar } from '../../layouts'
 import { CartItem } from './CartItem'
 import { AppState } from '../../store/store'

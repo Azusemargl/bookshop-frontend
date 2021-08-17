@@ -3,8 +3,7 @@
 .product {
    $self: &;
    width: calc(100% / 3 - 3rem);
-   height: fit-content;
-   max-height: 50rem;
+   max-height: 37rem;
    padding: 1rem;
    margin: 0 1rem 1rem 0;
    display: flex;

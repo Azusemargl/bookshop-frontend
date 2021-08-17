@@ -21,5 +21,4 @@ export const actions = {
 }
 
 // Types
-type InitialState = typeof initialState
 type Action = InferAction<typeof actions>

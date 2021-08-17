@@ -3,6 +3,7 @@ import { InferAction } from "../store"
 import { userAPI } from '../../utils/api/user.api'
 import { Login } from "../../types/authTypes"
 import { Books } from '../../types/bookTypes'
+import { Order } from '../../types/orderTypes'
 
 // Initial data
 const initialState = {
@@ -20,55 +21,12 @@ const initialState = {
    balance: 0,
    scores: 0,
    favorites: [] as Array<Books>,
+   orders: [] as Array<Order>,
    cart: null as string | null,
    token: null as string | null,
    city: 'Москва',
    gender: '' as 'M' | 'F',
    createdAt: null as Date | null,
-   orders: [
-      {
-         "_id": "1",
-         "name": "Атака титанов. Книга 1",
-         "image": "https://cdn1.ozone.ru/s3/multimedia-d/wc1200/6011956477.jpg",
-         "author": "Исаяма Хадзимэ",
-         "rating": 5,
-         "review": 723,
-         "price": 495,
-         "past_price": 569,
-         "category": "Манга",
-         "year_of_issue": 2021,
-         "date": 1622617937313,
-         "sales": 5672
-      },
-      {
-         "_id": "2",
-         "name": "Технологическая сингулярность",
-         "image": "https://cdn1.ozone.ru/multimedia/wc1200/1017508200.jpg",
-         "author": "Шанахан Мюррей",
-         "rating": 4,
-         "review": 31,
-         "price": 325,
-         "past_price": 387,
-         "category": "Наука",
-         "yaer": 2016,
-         "date": 1622617937314,
-         "sales": 150
-      },
-      {
-         "_id": "3",
-         "name": "ДНК и её человек",
-         "image": "https://cdn1.ozone.ru/multimedia/wc500/1036752299.jpg",
-         "author": "Клещенко Елена",
-         "rating": 4,
-         "review": 9,
-         "price": 368,
-         "past_price": 413,
-         "category": "Наука",
-         "yaer": 2020,
-         "date": 1622617937315,
-         "sales": 43
-      }
-   ] as Array<Books>,
    message: null as string | null,
    isLoading: false
 }
@@ -127,18 +85,18 @@ const logoutData = {
 
 // Acions
 export const actions = {
-   setUser:   (payload: Login) => ({ type: 'USER/SET_AUTH', payload }) as const,
-   setAvatar: (payload: {photo: string | null, error: string | null}) => ({ type: 'USER/SET_AVATAR', payload }) as const,
-   setToken: (payload: string) => ({ type: 'USER/SET_TOKEN', payload }) as const,
-   logout: () => ({ type: 'USER/SET_AUTH', payload: logoutData }) as const,
-   setFavorites:  (payload: Array<Books>) => ({ type: 'USER/SET_FAVORITES', payload }) as const,
-   removeFavorites:  (payload: Array<Books>) => ({ type: 'USER/REMOVE_FAVORITES', payload }) as const,
-   updateLogin:  (payload: string) => ({ type: 'USER/UPDATE_LOGIN', payload }) as const,
-   updateEmail:  (payload: string) => ({ type: 'USER/UPDATE_EMAIL', payload }) as const,
-   setPassword:  (payload: string | null) => ({ type: 'USER/SET_PASSWORD', payload }) as const,
+   setUser:         (payload: Login) => ({ type: 'USER/SET_AUTH', payload }) as const,
+   setAvatar:       (payload: {photo: string | null, error: string | null}) => ({ type: 'USER/SET_AVATAR', payload }) as const,
+   setToken:        (payload: string) => ({ type: 'USER/SET_TOKEN', payload }) as const,
+   logout:          () => ({ type: 'USER/SET_AUTH', payload: logoutData }) as const,
+   setFavorites:    (payload: Array<Books>) => ({ type: 'USER/SET_FAVORITES', payload }) as const,
+   removeFavorites: (payload: Array<Books>) => ({ type: 'USER/REMOVE_FAVORITES', payload }) as const,
+   updateLogin:     (payload: string) => ({ type: 'USER/UPDATE_LOGIN', payload }) as const,
+   updateEmail:     (payload: string) => ({ type: 'USER/UPDATE_EMAIL', payload }) as const,
+   setPassword:     (payload: string | null) => ({ type: 'USER/SET_PASSWORD', payload }) as const,
    setNewPassword:  (payload: string | null) => ({ type: 'USER/SET_NEW_PASSWORD', payload }) as const,
-   setMessage:  (payload: string | null) => ({ type: 'USER/SET_MESSAGE', payload }) as const,
-   setLoading:  (payload: boolean) => ({ type: 'USER/SET_LOADING', payload }) as const
+   setMessage:      (payload: string | null) => ({ type: 'USER/SET_MESSAGE', payload }) as const,
+   setLoading:      (payload: boolean) => ({ type: 'USER/SET_LOADING', payload }) as const
 }
 
 // Thunks

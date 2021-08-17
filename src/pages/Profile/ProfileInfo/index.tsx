@@ -1,19 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { removePhoto, savePhoto } from '../../../store/reducers/userReducer'
 import { AppState } from '../../../store/store'
-import { Diagram } from './diagram'
 import { CloseCircleFilled, UploadOutlined, UserAddOutlined } from '@ant-design/icons'
 import './profileInfo.scss'
-import { userAnalysis } from '../../../utils/helpers/userAnalysis'
 
 // TODO: Update user photo after server response
 
 export const Info: React.FC = React.memo(() => {
    const dispatch = useDispatch()
    const {
-      id, login, avatar, balance, scores, city, gender, orders, createdAt
+      id, login, avatar, balance, scores, city, gender, createdAt
    } = useSelector((state: AppState) => state.user)
 
    // Get image file
@@ -23,12 +20,7 @@ export const Info: React.FC = React.memo(() => {
       }
    }
 
-   const onAvatarRemove = () => {
-      id && dispatch(removePhoto(id))
-   }
-
-   const categories = userAnalysis.getCategories(orders)
-   const orderCounter = userAnalysis.getCategoriesCount(categories, orders)
+   const onAvatarRemove = () => id && dispatch(removePhoto(id))
 
    return (
       <div className="profile__info">
@@ -60,26 +52,6 @@ export const Info: React.FC = React.memo(() => {
             </div>
          </div>
          {avatar.error && <span className="profile__image-error">{avatar.error}</span>}
-         <div className="profile__detail">
-            <div className="profile__info-row">
-               <p className="profile__info-title">Заказы</p>
-               <Link to="/profile/orders" className="profile__info-link">Все заказы</Link>
-            </div>
-            <p className="profile__info-item">Всего: {orders.length}</p>
-            <div className="profile__history">
-               {orders.map(order => (
-                  <Link to={`/catalog`} className="profile__history-order" key={order._id}>
-                     <div className="profile__history-image">
-                        <img src={order.image} alt={order.name} />
-                     </div>
-                     <p>{order.name}</p>
-                  </Link>
-               ))}
-            </div>
-            <div className="profile__diagram">
-               <Diagram categories={categories} orderCounter={orderCounter} />
-            </div>
-         </div>
       </div>
    )
 })

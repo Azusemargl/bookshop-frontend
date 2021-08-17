@@ -4,7 +4,6 @@ import { userAPI } from '../../utils/api/user.api'
 import { userFetch } from './userReducer'
 import { getCartItem } from './cartReducer'
 import { Auth, Register } from "../../types/authTypes"
-import { fetchLoading } from './appReducer'
 
 // Initial data
 const initialState = {

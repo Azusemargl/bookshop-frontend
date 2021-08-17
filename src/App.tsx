@@ -17,15 +17,15 @@ const Wrapper: React.FC = () => {
 
   React.useEffect(() => {
     dispatch(fetchBooks())
-  }, [])
+  }, [dispatch])
 
   React.useEffect(() => {
     setCookie('token', token, { path: '/' })
-  }, [token])
+  }, [token, setCookie])
 
   React.useEffect(() => {
     dispatch(userAuth(cookies.token))
-  }, [])
+  }, [dispatch, cookies.token])
 
   return (
     <div className="wrapper">

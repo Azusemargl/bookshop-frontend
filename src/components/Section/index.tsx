@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import Slider from "react-slick"
 import { Product } from '..'
 import { sort } from '../../utils/helpers/sort'

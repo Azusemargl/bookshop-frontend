@@ -8,7 +8,7 @@ import { discount } from '../../utils/helpers/discount'
 import Favorites from '../Favorites'
 import { AppState } from '../../store/store'
 import { BookCard } from '../../types/bookTypes'
-import { StarFilled, StarOutlined, ShoppingCartOutlined, CheckOutlined } from '@ant-design/icons'
+import { ShoppingCartOutlined, CheckOutlined } from '@ant-design/icons'
 import './product.scss'
 
 const Product: React.FC<Props & BookCard> = React.memo((props) => {
@@ -56,13 +56,6 @@ const Product: React.FC<Props & BookCard> = React.memo((props) => {
                <h4 className="product__name">{name}</h4>
             </Link>
             <p className="product__author">{author}</p>
-            <div className="product__rating">
-               <div className="product__stars">
-                  {filled.map(_ => <span key={Math.random()}><StarFilled /></span>)}
-                  {outlined.map(_ => <span key={Math.random()}><StarOutlined /></span>)}
-               </div>
-               <p className="product__review">{review}</p>
-            </div>
          </div>
          <div className="product__footer">
             <div className="product__prices">

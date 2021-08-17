@@ -10,7 +10,7 @@ const Filed: React.FC<FieldProps> = ({ name, placeholder, type, label, authError
 
    return (
       <div className={classnames("auth-form__group",
-         {"error": errors && touched || authError},
+         {"error": (errors && touched) || authError},
          {"success": touched && !errors && !authError},
          {"checkbox": label}
       )}>

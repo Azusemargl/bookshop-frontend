@@ -1,7 +1,8 @@
 import { BooksCart } from "./bookTypes"
 
 export type Order = {
-   cartProductsId: Array<BooksCart>
+   _id?: string | null
+   books: Array<BooksCart>
    price: number
    userId: string | null
    name: string | null

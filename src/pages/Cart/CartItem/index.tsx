@@ -16,7 +16,7 @@ export const CartItem: React.FC<Props> = React.memo(({ bookId, image, name, auth
   const disabled = isDisabled.some(item => item === bookId) // Disable button during server answer expectation
   const currentCartItem = books.length && books.find(item => item.book._id === bookId) // Current cart item
 
-  const [value, setValue] = React.useState(currentCartItem && `${currentCartItem.count}` || '1') // Cart item counter
+  const [value, setValue] = React.useState((currentCartItem && `${currentCartItem.count}`) || '1') // Cart item counter
 
   // Remove cart item
   const onCartRemove = (bookId: string, cart: string, cartProductId: string) => {

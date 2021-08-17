@@ -17,8 +17,8 @@ const Filter: React.FC = React.memo(() => {
    const filter = useSelector((state: AppState) => state.filter.filter)
 
    // Categories
-   const books = [... new Set(booksState.map(book => book.category).sort())] // Output unique categories
-   const authors = [... new Set(booksState.map(book => book.author).sort())] // Output unique authors
+   const books = [...new Set(booksState.map(book => book.category).sort())] // Output unique categories
+   const authors = [...new Set(booksState.map(book => book.author).sort())] // Output unique authors
 
    // Get URI data for the following parsing
    const uri = decodeURIComponent(history.location.search)

@@ -70,3 +70,11 @@
       height: fit-content;
    }
 }
+
+.order {
+   &__item {
+      &:not(:last-child) {
+         margin-bottom: 2rem;
+      }
+   }
+}
