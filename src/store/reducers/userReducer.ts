@@ -4,6 +4,7 @@ import { userAPI } from '../../utils/api/user.api'
 import { Login } from "../../types/authTypes"
 import { Books } from '../../types/bookTypes'
 import { Order } from '../../types/orderTypes'
+import { orderAPI } from '../../utils/api/order.api'
 
 // Initial data
 const initialState = {
@@ -67,6 +68,9 @@ export const userReducer = (state = initialState, action: Action): InitialState 
       case 'USER/SET_LOADING':
          return { ...state, isLoading: action.payload }
 
+      case 'ORDER/SET_ORDER':
+         return { ...state, orders: action.payload }
+
       default:
          return state
    }
@@ -96,7 +100,8 @@ export const actions = {
    setPassword:     (payload: string | null) => ({ type: 'USER/SET_PASSWORD', payload }) as const,
    setNewPassword:  (payload: string | null) => ({ type: 'USER/SET_NEW_PASSWORD', payload }) as const,
    setMessage:      (payload: string | null) => ({ type: 'USER/SET_MESSAGE', payload }) as const,
-   setLoading:      (payload: boolean) => ({ type: 'USER/SET_LOADING', payload }) as const
+   setLoading:      (payload: boolean) => ({ type: 'USER/SET_LOADING', payload }) as const,
+   setOrder:        (payload: Array<Order>) => ({ type: 'ORDER/SET_ORDER', payload }) as const
 }
 
 // Thunks
@@ -190,6 +195,16 @@ export const fetchPassword = (
       setTimeout(() => dispatch(actions.setMessage(null)), 3000)
    } catch(e) {
       console.log(`Error: ${e}`)
+   }
+}
+// Set orders
+export const fetchOrder = (data: Order): Thunk => async dispatch => {
+   const res = await orderAPI.setOrder(data)
+
+   if (res.status === 200) {
+      dispatch(actions.setOrder(res.data))
+   } else {
+      console.log('Server error')
    }
 }
 
