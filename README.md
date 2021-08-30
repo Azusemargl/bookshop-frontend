@@ -1,46 +1,47 @@
-# Getting Started with Create React App
+# Bookshop Frontend
+The simple project for develop *React* skills. The application consists of the home page, the catalog, the detail book page, the user info, the cart and the order page.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Technologies:
+- JavaScript (ES6+), TypeScript;
+- React, Redux
+- Next.js
+- Redux-thunk, Formik, React-cookie, Axios
+- SASS, styled-components
 
-## Available Scripts
+### Pages and components:
+##### 1) Header component
+Component takes user data from the server and shows the following info in the header: user name, money value and scores. Input field provides an opportunity for searching books by names and authors. After entering data the search page will be shown to user with results.
 
-In the project directory, you can run:
+![result](./public/images/readme/main.jpg)
+##### 2) Products slider
+Some products can be chosen for detailed information and added to the favorites or the cart page. There is discount a value and special offer text in the book image. The user can hover over the book card in order to see the "add to cart" button, if this product wasn't already added. Otherwise, check mark will been seen. Bookcards can be sorted by date, popularity, and price.
 
-### `yarn start`
+![result](./public/images/readme/products.jpg)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+##### 3) Detail page
+Simple detail product page for searching some information, adding the current book to the cart or the favorites page.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+![result](./public/images/readme/detail.jpg)
 
-### `yarn test`
+##### 4) Catalog page
+User has an opportunity choose some category, author or set price span. This data is sent to the URL area for save filter settings after refreshing the page.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![result](./public/images/readme/catalog.jpg)
 
-### `yarn build`
+##### 5) Catalog page
+The cart page keeps selected books. User can delete the current book, choose it for the favorites page and change the number of products and then cart component will show the final price.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![result](./public/images/readme/cart.jpg)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+##### 6) User page
+User information. This component allows user to change their user avatar or remove it.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![result](./public/images/readme/user-info.jpg)
 
-### `yarn eject`
+The component consists of fields to change user information: login, email or password.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![result](./public/images/readme/user-settings.jpg)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The user can view orders
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+![result](./public/images/readme/user-orders.jpg)
